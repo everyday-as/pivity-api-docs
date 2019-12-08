@@ -1,0 +1,1645 @@
+openapi: 3.0.1
+info:
+  title: GmodStore
+  description: Welcome to the Gmodstore API! You can use our API to access Gmodstore API endpoints, which can be used interact with Gmodstore programmatically.
+  version: 1.0.0
+servers:
+  - url: 'https://api.gmodstore.com/v2'
+security:
+  - ApiKeyAuth: []
+tags:
+  - name: Addons
+  - name: Addon Coupons
+  - name: Addon Purchases
+  - name: Addon Reviews
+  - name: Addon Versions
+  - name: Teams
+  - name: Team Users
+  - name: Users
+  - name: User Addons
+  - name: User Purchases
+  - name: User Teams
+  - name: User Bans
+  - name: User Badges
+
+paths:
+  /addons:
+    get:
+      summary: Fetch all the addons that you have access to
+      tags:
+        - Addons
+      parameters:
+        - $ref: '#/components/parameters/AddonRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Addon'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/addons/{addon_id}':
+    get:
+      summary: Fetch a single addon
+      tags:
+        - Addons
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Addon'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/addons/{addon_id}/coupons':
+    get:
+      summary: Fetch all the coupons for an addon
+      tags:
+        - Addon Coupons
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonCouponRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddonCoupon'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create an addon coupon
+      tags:
+        - Addon Coupons
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonCouponRelation'
+      requestBody:
+        $ref: '#/components/requestBodies/AddonCouponBody'
+      responses:
+        '201':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonCoupon'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/addons/{addon_id}/coupons/{coupon_id}':
+    get:
+      summary: Fetch an addon's coupon
+      tags:
+        - Addon Coupons
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/CouponId'
+        - $ref: '#/components/parameters/AddonCouponRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonCoupon'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update an addon's coupon
+      tags:
+        - Addon Coupons
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/CouponId'
+        - $ref: '#/components/parameters/AddonCouponRelation'
+      requestBody:
+        $ref: '#/components/requestBodies/AddonCouponBody'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonCoupon'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Destroy an addon's coupon
+      tags:
+        - Addon Coupons
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/CouponId'
+      responses:
+        '204':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/addons/{addon_id}/purchases':
+    get:
+      summary: Fetch all purchases of an addon
+      tags:
+        - Addon Purchases
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonPurchaseRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddonPurchase'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a purchase for an addon
+      tags:
+        - Addon Purchases
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonPurchaseRelation'
+      requestBody:
+        $ref: '#/components/requestBodies/AddonPurchaseCreateBody'
+      responses:
+        '201':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonPurchase'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/addons/{addon_id}/purchases/{user_id}':
+    get:
+      summary: Get a purchase of an addon by user
+      tags:
+        - Addon Purchases
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/AddonPurchaseRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonPurchase'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a purchase for an addon
+      tags:
+        - Addon Purchases
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/AddonPurchaseRelation'
+      requestBody:
+        $ref: '#/components/requestBodies/AddonPurchaseUpdateBody'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonPurchase'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/addons/{addon_id}/reviews':
+    get:
+      summary: Fetch all the reviews of an addon
+      tags:
+        - Addon Reviews
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonReviewRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddonReview'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/addons/{addon_id}/reviews/{review_id}':
+    get:
+      summary: Fetch a review of an addon
+      tags:
+        - Addon Reviews
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/ReviewId'
+        - $ref: '#/components/parameters/AddonReviewRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonReview'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/addons/{addon_id}/versions':
+    get:
+      summary: Fetch all the versions of an addon
+      tags:
+        - Addon Versions
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonVersionRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddonVersion'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a new version for an addon
+      tags:
+        - Addon Versions
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonVersionRelation'
+      requestBody:
+        $ref: '#/components/requestBodies/AddonVersionCreateBody'
+      responses:
+        '201':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonVersion'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/addons/{addon_id}/versions/{version_id}':
+    get:
+      summary: Fetch a specific version of an addon
+      tags:
+        - Addon Versions
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/VersionId'
+        - $ref: '#/components/parameters/AddonVersionRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonVersion'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a version of an addon
+      tags:
+        - Addon Versions
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/VersionId'
+        - $ref: '#/components/parameters/AddonVersionRelation'
+      requestBody:
+        $ref: '#/components/requestBodies/AddonVersionUpdateBody'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonVersion'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/addons/{addon_id}/versions/{version_id}/download':
+    get:
+      summary: Generate a download token for a specific version of an addon
+      tags:
+        - Addon Versions
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/VersionId'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonDownload'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/teams/{team_id}':
+    get:
+      summary: Fetch a single team
+      tags:
+        - Teams
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+        - $ref: '#/components/parameters/TeamRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Team'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/teams/{team_id}/users':
+    get:
+      summary: Fetch all the users in the given team
+      tags:
+        - Team Users
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+        - $ref: '#/components/parameters/TeamUserRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TeamUser'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/me:
+    get:
+      summary: Fetches the current user (API Key Owner)
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/UserRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/users/{user_id}':
+    get:
+      summary: Fetch a single user
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/UserRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/users/{user_id}/addons':
+    get:
+      summary: Fetch all the addons authored / co-authored by a user
+      tags:
+        - User Addons
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/AddonRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Addon'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/users/{user_id}/purchases':
+    get:
+      summary: Fetch all purchases a user has made
+      tags:
+        - User Purchases
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/AddonPurchaseRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddonPurchase'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/users/{user_id}/teams':
+    get:
+      summary: Fetch all the teams of a user
+      tags:
+        - User Teams
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/TeamRelation'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Team'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/users/{user_id}/bans':
+    get:
+      summary: Fetch all active bans associated with this user
+      tags:
+        - User Bans
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Ban'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/users/{user_id}/badges':
+    get:
+      summary: Fetch all the badges a user has
+      tags:
+        - User Badges
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserBadgeLegend'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Give a user a badge
+      tags:
+        - User Badges
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        $ref: '#/components/requestBodies/BadgeCreateBody'
+      responses:
+        '201':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserBadgeLegend'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/users/{user_id}/badges/{badge_id}':
+    delete:
+      summary: Destroy a users's badge
+      tags:
+        - User Badges
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/BadgeId'
+      responses:
+        '204':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Error'
+
+components:
+  parameters:
+    AddonId:
+      name: addon_id
+      in: path
+      description: Id of the addon
+      required: true
+      schema:
+        type: integer
+        format: int64
+    CouponId:
+      name: coupon_id
+      in: path
+      description: Id of the coupon
+      required: true
+      schema:
+        type: integer
+        format: int64
+    UserId:
+      name: user_id
+      in: path
+      description: Id of the user
+      required: true
+      schema:
+        type: string
+    ReviewId:
+      name: review_id
+      in: path
+      description: Id of the review
+      required: true
+      schema:
+        type: integer
+        format: int64
+    VersionId:
+      name: version_id
+      in: path
+      description: Id of the version
+      required: true
+      schema:
+        type: integer
+        format: int64
+    TeamId:
+      name: team_id
+      in: path
+      description: Id of the team
+      required: true
+      schema:
+        type: integer
+        format: int64
+    BadgeId:
+      name: badge_id
+      in: path
+      description: Id of the badge
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+    AddonRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the Addon schema
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - latest_version
+            - team
+    AddonCouponRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the AddonCoupon schema
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - addon
+    AddonPurchaseRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the AddonPurchase schema
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - addon
+            - order_item
+            - user
+    AddonReviewRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the AddonReview schema
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - addon
+            - author
+    AddonVersionRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the AddonVersion schema
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - addon
+    TeamRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the Team schema
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - primaryAuthor
+    TeamUserRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the TeamUser schema
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - user
+    UserRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the User schema
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - group
+
+  requestBodies:
+    AddonCouponBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              percent:
+                type: integer
+                minimum: 1
+                maximum: 99
+              code:
+                type: string
+              max_uses:
+                type: integer
+              expires_at:
+                type: string
+                description: '`null` for infinite'
+                format: date-time
+            required:
+              - percent
+              - code
+              - max_uses
+              - expires_at
+    AddonPurchaseCreateBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: string
+            required:
+              - user_id
+    AddonPurchaseUpdateBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              revoked:
+                type: boolean
+            required:
+              - revoked
+    AddonVersionCreateBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 1
+                maxLength: 80
+              changelog:
+                type: string
+                minLength: 1
+                maxLength: 10000
+              file:
+                type: string
+                format: binary
+            required:
+              - name
+              - changelog
+              - file
+    AddonVersionUpdateBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 1
+                maxLength: 80
+              changelog:
+                type: string
+                minLength: 1
+                maxLength: 10000
+              file:
+                type: string
+                format: binary
+            required:
+              - name
+              - changelog
+              - file
+    BadgeCreateBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              badge:
+                type: string
+            required:
+              - badge
+
+  schemas:
+    Addon:
+      type: object
+      properties:
+        id:
+          type: integer
+        active:
+          type: boolean
+        name:
+          type: string
+        short_description:
+          type: string
+        description:
+          type: string
+        requirements:
+          type: array
+          items:
+            type: string
+        price:
+          type: object
+          properties:
+            original:
+              type: object
+              properties:
+                amount:
+                  type: integer
+                  minimum: 0
+                  exclusiveMinimum: true
+                currency:
+                  type: string
+            purchase:
+              type: object
+              properties:
+                amount:
+                  type: integer
+                  minimum: 0
+                  exclusiveMinimum: true
+                currency:
+                  type: string
+        images:
+          type: object
+          properties:
+            bigspot:
+              type: string
+              format: uri
+            listing:
+              type: string
+              format: uri
+            listing_small:
+              type: string
+              format: uri
+        slug:
+          type: string
+        route:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        latest_version:
+          $ref: '#/components/schemas/AddonVersion'
+        team:
+          $ref: '#/components/schemas/Team'
+      required:
+        - id
+        - active
+        - name
+        - short_description
+        - description
+        - requirements
+        - price
+        - images
+        - slug
+        - route
+        - created_at
+        - updated_at
+    AddonCoupon:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        code:
+          type: string
+        percent:
+          type: number
+          minimum: 0
+          maximum: 100
+          exclusiveMinimum: true
+          exclusiveMaximum: true
+        max_uses:
+          type: integer
+          minimum: 0
+        expires_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: integer
+          format: date-time
+        addon:
+          $ref: '#/components/schemas/Addon'
+      required:
+        - id
+        - code
+        - percent
+        - max_uses
+        - expires_at
+        - created_at
+        - updated_at
+    AddonDownload:
+      description: '**NOTE:** The url is valid for a single use within 24 hours **ONLY**!'
+      type: object
+      properties:
+        url:
+          type: string
+          format: url
+      required:
+        - url
+    AddonPurchase:
+      type: object
+      properties:
+        revoked:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: integer
+          format: date-time
+        addon:
+          $ref: '#/components/schemas/Addon'
+        order_item:
+          $ref: '#/components/schemas/OrderItem'
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+        - revoked
+        - created_at
+        - updated_at
+    AddonReview:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        title:
+          type: string
+        version:
+          type: string
+        body:
+          type: string
+        rating:
+          type: number
+          minimum: 0
+          maximum: 5
+          exclusiveMinimum: true
+        addon:
+          $ref: '#/components/schemas/Addon'
+        author:
+          $ref: '#/components/schemas/User'
+      required:
+        - id
+        - title
+        - version
+        - body
+        - rating
+    AddonVersion:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        name:
+          type: string
+        changelog:
+          type: string
+        file_hash:
+          type: string
+        file_size:
+          type: integer
+          minimum: 0
+        release_type:
+          type: string
+          enum:
+            - stable
+            - beta
+            - alpha
+            - private
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        addon:
+          $ref: '#/components/schemas/Addon'
+      required:
+        - id
+        - name
+        - changelog
+        - file_hash
+        - file_size
+        - created_at
+        - updated_at
+    PermissionGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        title:
+          type: string
+        display_order:
+          type: integer
+          minimum: 0
+      required:
+        - id
+        - title
+        - display_order
+    OrderItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        price:
+          type: object
+          properties:
+            amount:
+              type: string
+            currency:
+              type: string
+        reversed_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - price
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        primaryAuthor:
+          $ref: '#/components/schemas/TeamUser'
+      required:
+        - id
+        - name
+        - created_at
+        - updated_at
+    TeamUser:
+      type: object
+      properties:
+        team_id:
+          type: integer
+          minimum: 1
+        primary:
+          type: boolean
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+        - team_id
+        - primary
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        name:
+          type: string
+        avatar:
+          type: string
+          format: uri
+        country_code:
+          type: string
+        slug:
+          type: string
+        ban_properties:
+          type: array
+          items:
+            type: string
+            enum:
+              - everything
+              - addon.create
+              - addon.purchase
+              - addon.download
+              - addon.review
+              - addon.comment
+              - job.create
+              - job.apply
+              - job.review
+              - job.comment
+              - ban.appeal
+        group:
+          $ref: '#/components/schemas/PermissionGroup'
+      required:
+        - id
+        - name
+        - avatar
+        - slug
+        - ban_properties
+    Ban:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        name:
+          type: string
+        avatar:
+          type: string
+          format: uri
+        country_code:
+          type: string
+        slug:
+          type: string
+        ban_properties:
+          type: array
+          items:
+            type: string
+            enum:
+              - everything
+              - addon.create
+              - addon.purchase
+              - addon.download
+              - addon.review
+              - addon.comment
+              - job.create
+              - job.apply
+              - job.review
+              - job.comment
+              - ban.appeal
+      required:
+        - id
+        - name
+        - avatar
+        - slug
+        - ban_properties
+    UserBadgeLegend:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        ext:
+          type: string
+      required:
+        - id
+        - name
+        - description
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
