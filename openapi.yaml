@@ -1177,7 +1177,7 @@ components:
                 type: integer
               expires_at:
                 type: string
-                description: '`null` for infinite'
+                description: 'Can be maximum of two weeks into the future'
                 format: date-time
             required:
               - percent
@@ -1643,3 +1643,4 @@ components:
       type: apiKey
       in: header
       name: Authorization
+      description: 'The Gmodstore API provides two methods of authentication: bearer token and query parameter. The preferred method is usingthe bearer token. To do so simply set the Authorization header to Bearer <api_key> where <api_key> is your API key. If you for some reason wish to use the API with the old way simply pass a query variable named api_key containing your API key.'
