@@ -6,7 +6,10 @@ https://docs.gmodstore.com/
 
 ## Client libraries
 
-We will add a JavaScript library in the future, but at the moment it seems generation for JavaScript is broken.
+We will add a JavaScript library in the future, but at the moment it seems generation for JavaScript is broken, in the meantime you can use: 
+https://github.com/swagger-api/swagger-js as a replacement for an official GmodStore Node.js/JavaScript library. Here the `specUrl` would be:
+
+`https://raw.githubusercontent.com/Everyday-AS/gmodstore-api-docs/master/openapi.yaml`
 
 ### Existing libraries
 
