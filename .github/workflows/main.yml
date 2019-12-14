@@ -22,7 +22,7 @@ jobs:
           -i openapi.yaml \
           -l php \
           -c sdk-configs/php.json
-          -o sdk/php
+          -o sdks/php
     - name: Commit files
       run: |
         git config --local user.email "action@github.com"
@@ -31,6 +31,6 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        directory: "sdk/php"
+        directory: "sdks/php"
         github_token: ${{ secrets.GITHUB_TOKEN }}
         repository: "everyday-as/gmodstore-php-sdk"
