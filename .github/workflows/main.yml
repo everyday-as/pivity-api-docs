@@ -26,18 +26,19 @@ jobs:
     - name: Generate PHP SDK
       run: |
         java -jar swagger-codegen-cli.jar generate \
-          -i ./openapi.yaml \
+          -i openapi.yaml \
           -l php \
-          -c ./sdk-configs/php.json \
-          -o ./sdks/php
+          -c sdk-configs/php.json \
+          -o sdks/php
     - name: Commit files
       run: |
+        cd sdks/php
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "Automatic sync" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        directory: "./sdks/php"
+        directory: "sdks/php"
         github_token: ${{ secrets.ACCESS_TOKEN }}
         repository: "everyday-as/gmodstore-php-sdk"
