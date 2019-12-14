@@ -14,6 +14,7 @@ jobs:
         token: ${{ secrets.ACCESS_TOKEN }}
         path: './sdks/php'
     - name: Install Java 9 runtime
+      run: pwd
       uses: actions/setup-java@v1
       with:
         java-version: '9.0.4'
