@@ -13,8 +13,9 @@ jobs:
         repository: everyday-as/gmodstore-php-sdk
         token: ${{ secrets.ACCESS_TOKEN }}
         path: './sdks/php'
-    - name: Install Java 9 runtime
+    - name: Check current working dir
       run: pwd
+    - name: Install Java 9 runtime
       uses: actions/setup-java@v1
       with:
         java-version: '9.0.4'
