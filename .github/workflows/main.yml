@@ -30,7 +30,7 @@ jobs:
           -i openapi.yaml \
           -l php \
           -c sdk-templates/php/config.json \
-          -t sdk-templates/php
+          -t sdk-templates/php \
           -o .autogen/php
     - name: Commit files
       run: |
