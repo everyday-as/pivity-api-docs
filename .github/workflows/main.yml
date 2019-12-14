@@ -12,7 +12,7 @@ jobs:
       with:
         repository: everyday-as/gmodstore-php-sdk
         token: ${{ secrets.ACCESS_TOKEN }}
-        path: './sdks/php'
+        path: '.autogen/php'
     - name: Check current working dir
       run: pwd
     - name: Install Java 9 runtime
@@ -25,20 +25,22 @@ jobs:
       run: wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/3.0.14/swagger-codegen-cli-3.0.14.jar -O swagger-codegen-cli.jar
     - name: Generate PHP SDK
       run: |
+        rm -rf .autogen/php/lib && rm -rf .autogen/php/docs
         java -jar swagger-codegen-cli.jar generate \
           -i openapi.yaml \
           -l php \
-          -c sdk-configs/php.json \
-          -o sdks/php
+          -c sdk-templates/php/config.json \
+          -t sdk-templates/php
+          -o .autogen/php
     - name: Commit files
       run: |
-        cd sdks/php
+        cd .autogen/php
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "Automatic sync" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        directory: "sdks/php"
+        directory: ".autogen/php"
         github_token: ${{ secrets.ACCESS_TOKEN }}
         repository: "everyday-as/gmodstore-php-sdk"
