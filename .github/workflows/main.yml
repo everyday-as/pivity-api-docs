@@ -33,15 +33,15 @@ jobs:
           -c sdk-configs/php.json \
           -t sdk-templates/php \
           -o .autogen/php
-    - name: Commit files
-      run: |
-        cd .autogen/php
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -m "Automatic sync" -a
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        directory: ".autogen/php"
-        github_token: ${{ secrets.ACCESS_TOKEN }}
-        repository: "everyday-as/gmodstore-php-sdk"
+#    - name: Commit files
+#      run: |
+#        cd .autogen/php
+#        git config --local user.email "action@github.com"
+#        git config --local user.name "GitHub Action"
+#        git commit -m "Automatic sync" -a
+#    - name: Push changes
+#      uses: ad-m/github-push-action@master
+#      with:
+#        directory: ".autogen/php"
+#        github_token: ${{ secrets.ACCESS_TOKEN }}
+#        repository: "everyday-as/gmodstore-php-sdk"
