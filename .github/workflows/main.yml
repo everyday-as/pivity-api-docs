@@ -20,7 +20,7 @@ jobs:
         java -jar swagger-codegen-cli.jar generate \
           -i ./openapi.yaml \
           -l php \
-          -c ./sdk-configs/php.json
+          -c ./sdk-configs/php.json \
           -o ./sdks/php
     - name: Commit files
       run: |
