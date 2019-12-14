@@ -1,0 +1,36 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build-php-sdk:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Java 9 runtime
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '9.0.4'
+        java-package: jdk
+        architecture: x64
+    - name: Get Swagger Codegen CLI
+      run: wget http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.10/swagger-codegen-cli-2.4.10.jar -O swagger-codegen-cli.jar
+    - uses: actions/checkout@master
+    - name: Generate PHP SDK
+      run: |
+        java -jar swagger-codegen-cli.jar generate \
+          -i openapi.yaml \
+          -l php \
+          -c sdk-configs/php.json
+          -o sdk/php
+    - name: Commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Automatic sync" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        directory: "sdk/php"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        repository: "everyday-as/gmodstore-php-sdk"
