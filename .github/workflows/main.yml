@@ -13,10 +13,10 @@ jobs:
       LANGUAGE: php
     steps:
       - uses: actions/checkout@master
-      - name: Clone PHP SDK repository
+      - name: Clone SDK repository
         uses: actions/checkout@master
         with:
-          repository: everyday-as/gmodstore-php-sdk
+          repository: everyday-as/gmodstore-${{ env.LANGUAGE }}-sdk
           token: ${{ secrets.ACCESS_TOKEN }}
           path: '.autogen/${{ env.LANGUAGE }}'
       - name: Install Java runtime
