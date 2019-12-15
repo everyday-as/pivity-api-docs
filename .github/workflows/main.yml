@@ -18,7 +18,7 @@ jobs:
         with:
           repository: everyday-as/gmodstore-php-sdk
           token: ${{ secrets.ACCESS_TOKEN }}
-          path: '.autogen/$LANGUAGE'
+          path: '.autogen/${{ env.LANGUAGE }}'
       - name: Install Java runtime
         uses: actions/setup-java@v1
         with:
@@ -29,16 +29,16 @@ jobs:
         run: wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/${{ env.SWAGGER_CODEGEN_CLI_VERSION }}/swagger-codegen-cli-${{ env.SWAGGER_CODEGEN_CLI_VERSION }}.jar -O swagger-codegen-cli.jar
       - name: Generate PHP SDK
         run: |
-          rm -rf .autogen/$LANGUAGE/lib && rm -rf .autogen/$LANGUAGE/docs
+          rm -rf .autogen/${{ env.LANGUAGE }}/lib && rm -rf .autogen/${{ env.LANGUAGE }}/docs
           java -jar swagger-codegen-cli.jar generate \
             -i openapi.yaml \
-            -l $LANGUAGE \
-            -c sdk-configs/$LANGUAGE.json \
-            -t sdk-templates/$LANGUAGE \
-            -o .autogen/$LANGUAGE
+            -l ${{ env.LANGUAGE }} \
+            -c sdk-configs/${{ env.LANGUAGE }}.json \
+            -t sdk-templates/${{ env.LANGUAGE }} \
+            -o .autogen/${{ env.LANGUAGE }}
       - name: Commit files
         run: |
-          cd .autogen/$LANGUAGE
+          cd .autogen/${{ env.LANGUAGE }}
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
@@ -46,6 +46,6 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          directory: ".autogen/$LANGUAGE"
+          directory: ".autogen/${{ env.LANGUAGE }}"
           github_token: ${{ secrets.ACCESS_TOKEN }}
-          repository: "everyday-as/gmodstore-$LANGUAGE-sdk"
+          repository: "everyday-as/gmodstore-${{ env.LANGUAGE }}-sdk"
