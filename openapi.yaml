@@ -3,6 +3,10 @@ info:
   title: GmodStore
   description: Welcome to the Gmodstore API! You can use our API to access Gmodstore API endpoints, which can be used interact with Gmodstore programmatically.
   version: 1.0.0
+  x-logo:
+    url: https://media.gmodstore.com/_/assets/img/gmodstore.svg
+    backgroundColor: '3097d1'
+    href: https://www.gmodstore.com
 servers:
   - url: 'https://api.gmodstore.com/v2'
 security:
