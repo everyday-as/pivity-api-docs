@@ -17,6 +17,10 @@ https://github.com/swagger-api/swagger-js as a replacement for an official GmodS
 
 https://github.com/Everyday-AS/gmodstore-php-sdk
 
+#### Java
+
+https://github.com/everyday-as/gmodstore-java-sdk
+
 ### Generating your own
 
 To generate your own client libraries you can use Swagger and the openapi.yaml found in this repository.

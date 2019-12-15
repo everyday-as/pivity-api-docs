@@ -17,6 +17,9 @@ tags:
       An up-to-date value will always provided in the `X-RateLimit-Limit` header.
       The number of requests you have remaining before you must wait is provided in the `X-RateLimit-Remaining` header.'
     x-traitTag: true
+  - name: API SDKs
+    description: 'For a list of available API SDKs check the README here: https://github.com/everyday-as/gmodstore-api-docs#client-libraries'
+    x-traitTag: true
   - name: Addons
   - name: Addon Coupons
   - name: Addon Purchases
