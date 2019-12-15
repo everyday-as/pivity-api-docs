@@ -26,7 +26,7 @@ jobs:
           java-package: jdk
           architecture: x64
       - name: Get Swagger Codegen CLI
-        run: wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/${{ env.$SWAGGER_CODEGEN_CLI_VERSION }}/swagger-codegen-cli-${{ env.$SWAGGER_CODEGEN_CLI_VERSION }}.jar -O swagger-codegen-cli.jar
+        run: wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/${{ env.SWAGGER_CODEGEN_CLI_VERSION }}/swagger-codegen-cli-${{ env.SWAGGER_CODEGEN_CLI_VERSION }}.jar -O swagger-codegen-cli.jar
       - name: Generate PHP SDK
         run: |
           rm -rf .autogen/$LANGUAGE/lib && rm -rf .autogen/$LANGUAGE/docs
