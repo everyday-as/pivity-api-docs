@@ -2,44 +2,50 @@ name: CI
 
 on: [push]
 
+env:
+  swagger-codegen-cli-version: 3.0.14
+  java-version: 9.0.4
+
 jobs:
   build-php-sdk:
     runs-on: ubuntu-latest
+    env:
+      language: php
     steps:
-    - uses: actions/checkout@master
-    - name: Clone PHP SDK repository
-      uses: actions/checkout@master
-      with:
-        repository: everyday-as/gmodstore-php-sdk
-        token: ${{ secrets.ACCESS_TOKEN }}
-        path: '.autogen/php'
-    - name: Install Java runtime
-      uses: actions/setup-java@v1
-      with:
-        java-version: '9.0.4'
-        java-package: jdk
-        architecture: x64
-    - name: Get Swagger Codegen CLI
-      run: wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/3.0.14/swagger-codegen-cli-3.0.14.jar -O swagger-codegen-cli.jar
-    - name: Generate PHP SDK
-      run: |
-        rm -rf .autogen/php/lib && rm -rf .autogen/php/docs
-        java -jar swagger-codegen-cli.jar generate \
-          -i openapi.yaml \
-          -l php \
-          -c sdk-configs/php.json \
-          -t sdk-templates/php \
-          -o .autogen/php
-    - name: Commit files
-      run: |
-        cd .autogen/php
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add .
-        git commit -m "Automatic sync" -a
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        directory: ".autogen/php"
-        github_token: ${{ secrets.ACCESS_TOKEN }}
-        repository: "everyday-as/gmodstore-php-sdk"
+      - uses: actions/checkout@master
+      - name: Clone PHP SDK repository
+        uses: actions/checkout@master
+        with:
+          repository: everyday-as/gmodstore-php-sdk
+          token: ${{ secrets.ACCESS_TOKEN }}
+          path: '.autogen/${{ language }}'
+      - name: Install Java runtime
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ java-version }}
+          java-package: jdk
+          architecture: x64
+      - name: Get Swagger Codegen CLI
+        run: wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/${{ swagger-codegen-cli-version }}/swagger-codegen-cli-${{ swagger-codegen-cli-version }}.jar -O swagger-codegen-cli.jar
+      - name: Generate PHP SDK
+        run: |
+          rm -rf .autogen/${{ language }}/lib && rm -rf .autogen/${{ language }}/docs
+          java -jar swagger-codegen-cli.jar generate \
+            -i openapi.yaml \
+            -l ${{ language }} \
+            -c sdk-configs/${{ language }}.json \
+            -t sdk-templates/${{ language }} \
+            -o .autogen/${{ language }}
+      - name: Commit files
+        run: |
+          cd .autogen/${{ language }}
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Automatic sync" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          directory: ".autogen/${{ language }}"
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          repository: "everyday-as/gmodstore-${{ language }}-sdk"
