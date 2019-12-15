@@ -3,14 +3,14 @@ name: CI
 on: [push]
 
 env:
-  swagger-codegen-cli-version: 3.0.14
-  java-version: 9.0.4
+  SWAGGER_CODEGEN_CLI_VERSION: 3.0.14
+  JAVA_VERSION: 9.0.4
 
 jobs:
   build-php-sdk:
     runs-on: ubuntu-latest
     env:
-      language: php
+      LANGUAGE: php
     steps:
       - uses: actions/checkout@master
       - name: Clone PHP SDK repository
@@ -18,27 +18,27 @@ jobs:
         with:
           repository: everyday-as/gmodstore-php-sdk
           token: ${{ secrets.ACCESS_TOKEN }}
-          path: '.autogen/${{ language }}'
+          path: '.autogen/$LANGUAGE'
       - name: Install Java runtime
         uses: actions/setup-java@v1
         with:
-          java-version: ${{ java-version }}
+          java-version: ${{ JAVA_VERSION }}
           java-package: jdk
           architecture: x64
       - name: Get Swagger Codegen CLI
-        run: wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/${{ swagger-codegen-cli-version }}/swagger-codegen-cli-${{ swagger-codegen-cli-version }}.jar -O swagger-codegen-cli.jar
+        run: wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/$SWAGGER_CODEGEN_CLI_VERSION/swagger-codegen-cli-$SWAGGER_CODEGEN_CLI_VERSION.jar -O swagger-codegen-cli.jar
       - name: Generate PHP SDK
         run: |
-          rm -rf .autogen/${{ language }}/lib && rm -rf .autogen/${{ language }}/docs
+          rm -rf .autogen/$LANGUAGE/lib && rm -rf .autogen/$LANGUAGE/docs
           java -jar swagger-codegen-cli.jar generate \
             -i openapi.yaml \
-            -l ${{ language }} \
-            -c sdk-configs/${{ language }}.json \
-            -t sdk-templates/${{ language }} \
-            -o .autogen/${{ language }}
+            -l $LANGUAGE \
+            -c sdk-configs/$LANGUAGE.json \
+            -t sdk-templates/$LANGUAGE \
+            -o .autogen/$LANGUAGE
       - name: Commit files
         run: |
-          cd .autogen/${{ language }}
+          cd .autogen/$LANGUAGE
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
@@ -46,6 +46,6 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          directory: ".autogen/${{ language }}"
+          directory: ".autogen/$LANGUAGE"
           github_token: ${{ secrets.ACCESS_TOKEN }}
-          repository: "everyday-as/gmodstore-${{ language }}-sdk"
+          repository: "everyday-as/gmodstore-$LANGUAGE-sdk"
