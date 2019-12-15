@@ -20,7 +20,18 @@
   </style>
 </head>
 <body>
-<redoc spec-url="https://raw.githubusercontent.com/Everyday-AS/gmodstore-api-docs/master/openapi.yaml" theme="{ menu: { logo: { gutter: '20px' } } }"></redoc>
+<div id="redoc-container"></div>
 <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
+<script>
+  Redoc.init('https://raw.githubusercontent.com/everyday-as/gmodstore-api-docs/master/openapi.yaml', {
+    theme: {
+      menu: {
+        logo: {
+          gutter: '20px'
+        }
+      }
+    }
+  }, document.getElementById('redoc-container'))
+</script>
 </body>
 </html>
