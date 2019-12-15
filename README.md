@@ -21,6 +21,10 @@ https://github.com/Everyday-AS/gmodstore-php-sdk
 
 https://github.com/everyday-as/gmodstore-java-sdk
 
+#### Python
+
+https://github.com/everyday-as/gmodstore-python-sdk
+
 ### Generating your own
 
 To generate your own client libraries you can use Swagger and the openapi.yaml found in this repository.
