@@ -14,7 +14,7 @@ security:
 tags:
   - name: Rate limits
     description: 'Every request you make to the Gmodstore API will count against your rate limit, which at the time of writing this, is 60 requests / minute.
-      An up-to-date value will always provided in the `X-RateLimit-Limit header`.
+      An up-to-date value will always provided in the `X-RateLimit-Limit` header.
       The number of requests you have remaining before you must wait is provided in the `X-RateLimit-Remaining` header.'
     x-traitTag: true
   - name: Addons
