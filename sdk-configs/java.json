@@ -1,0 +1,20 @@
+{
+  "sourceFolder": ".",
+  "invokerPackage": "no.everyday.gmodstore-sdk",
+  "modelPackage": "no.everyday.gmodstore-sdk.model",
+  "apiPackage": "no.everyday.gmodstore-sdk.api",
+  "groupId": "no.everyday",
+  "artifactVersion": "1.0.0",
+  "artifactId": "gmodstore-sdk",
+  "artifactUrl": "https://github.com/everyday-as/gmodstore-java-sdk",
+  "artifactDescription": "The GmodStore API Java SDK",
+  "scmConnection": "scm:git:git@github.com:everyday-as/gmodstore-java-sdk.git",
+  "scmDeveloperConnection": "scm:git:git@github.com:everyday-as/gmodstore-java-sdk.git",
+  "scmUrl": "https://github.com/everyday-as/gmodstore-java-sdk",
+  "developerName": "Marcus Dahl",
+  "developerEmail": "marcus.dahl@everyday.no",
+  "developerOrganization": "Everyday AS",
+  "developerOrganizationUrl": "https://everyday.no",
+  "licenseName": "MIT",
+  "licenseUrl": "LICENSE.md"
+}

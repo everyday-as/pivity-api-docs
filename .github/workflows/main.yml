@@ -49,3 +49,44 @@ jobs:
           directory: ".autogen/${{ env.LANGUAGE }}"
           github_token: ${{ secrets.ACCESS_TOKEN }}
           repository: "everyday-as/gmodstore-${{ env.LANGUAGE }}-sdk"
+  build-java-sdk:
+    runs-on: ubuntu-latest
+    env:
+      LANGUAGE: java
+    steps:
+      - uses: actions/checkout@master
+      - name: Clone SDK repository
+        uses: actions/checkout@master
+        with:
+          repository: everyday-as/gmodstore-${{ env.LANGUAGE }}-sdk
+          token: ${{ secrets.ACCESS_TOKEN }}
+          path: '.autogen/${{ env.LANGUAGE }}'
+      - name: Install Java runtime
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          java-package: jdk
+          architecture: x64
+      - name: Get Swagger Codegen CLI
+        run: wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/${{ env.SWAGGER_CODEGEN_CLI_VERSION }}/swagger-codegen-cli-${{ env.SWAGGER_CODEGEN_CLI_VERSION }}.jar -O swagger-codegen-cli.jar
+      - name: Generate SDK
+        run: |
+          rm -rf .autogen/${{ env.LANGUAGE }}/lib && rm -rf .autogen/${{ env.LANGUAGE }}/docs
+          java -jar swagger-codegen-cli.jar generate \
+            -i openapi.yaml \
+            -l ${{ env.LANGUAGE }} \
+            -c sdk-configs/${{ env.LANGUAGE }}.json \
+            -o .autogen/${{ env.LANGUAGE }}
+      - name: Commit files
+        run: |
+          cd .autogen/${{ env.LANGUAGE }}
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Automatic sync" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          directory: ".autogen/${{ env.LANGUAGE }}"
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          repository: "everyday-as/gmodstore-${{ env.LANGUAGE }}-sdk"
