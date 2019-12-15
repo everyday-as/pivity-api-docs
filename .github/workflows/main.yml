@@ -29,7 +29,7 @@ jobs:
         run: wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/${{ env.SWAGGER_CODEGEN_CLI_VERSION }}/swagger-codegen-cli-${{ env.SWAGGER_CODEGEN_CLI_VERSION }}.jar -O swagger-codegen-cli.jar
       - name: Generate SDK
         run: |
-          rm -rf .autogen/${{ env.LANGUAGE }}/lib && rm -rf .autogen/${{ env.LANGUAGE }}/docs
+          rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
           java -jar swagger-codegen-cli.jar generate \
             -i openapi.yaml \
             -l ${{ env.LANGUAGE }} \
@@ -71,7 +71,7 @@ jobs:
         run: wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/${{ env.SWAGGER_CODEGEN_CLI_VERSION }}/swagger-codegen-cli-${{ env.SWAGGER_CODEGEN_CLI_VERSION }}.jar -O swagger-codegen-cli.jar
       - name: Generate SDK
         run: |
-          rm -rf .autogen/${{ env.LANGUAGE }}/lib && rm -rf .autogen/${{ env.LANGUAGE }}/docs
+          rm -rf .autogen/${{ env.LANGUAGE }}/no .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/src .autogen/${{ env.LANGUAGE }}/README.md
           java -jar swagger-codegen-cli.jar generate \
             -i openapi.yaml \
             -l ${{ env.LANGUAGE }} \
