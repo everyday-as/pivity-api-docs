@@ -5,7 +5,7 @@ info:
   version: 1.0.0
   x-logo:
     url: https://media.gmodstore.com/_/assets/img/gmodstore.svg
-    backgroundColor: '3097d1'
+    backgroundColor: '#3097d1'
     href: https://www.gmodstore.com
 servers:
   - url: 'https://api.gmodstore.com/v2'
