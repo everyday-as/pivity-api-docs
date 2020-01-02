@@ -9,7 +9,7 @@ https://docs.gmodstore.com/
 We will add a JavaScript library in the future, but at the moment it seems generation for JavaScript is broken, in the meantime you can use: 
 https://github.com/swagger-api/swagger-js as a replacement for an official GmodStore Node.js/JavaScript library. Here the `specUrl` would be:
 
-`https://raw.githubusercontent.com/Everyday-AS/gmodstore-api-docs/master/openapi.yaml`
+`https://raw.githubusercontent.com/everyday-as/gmodstore-api-docs/master/openapi.yaml`
 
 ### Existing libraries
 
@@ -25,6 +25,10 @@ https://github.com/everyday-as/gmodstore-java-sdk
 
 https://github.com/everyday-as/gmodstore-python-sdk
 
+#### CSharp
+
+https://github.com/everyday-as/gmodstore-csharp-sdk
+
 ### Generating your own
 
 To generate your own client libraries you can use Swagger and the openapi.yaml found in this repository.
@@ -35,7 +39,7 @@ You can generate a Java library for GmodStore using the following command:
 
 ```
 java -jar swagger-codegen-cli.jar generate \
-  -i https://raw.githubusercontent.com/Everyday-AS/gmodstore-api-docs/master/openapi.yaml \
+  -i https://raw.githubusercontent.com/everyday-as/gmodstore-api-docs/master/openapi.yaml \
   -l java \
   -o gmodstoresdk/java
 ```
