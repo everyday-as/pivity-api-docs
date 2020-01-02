@@ -102,6 +102,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  '/addons/{addon_id}/stats':
+    get:
+      summary: Fetch all the stats for an addon
+      tags:
+        - Addon Stats
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+      responses:
+        '200':
+          description: 'Ok: Successfully processed the request.'
+          headers:
+            X-Ratelimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per minute.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddonStats'
+        default:
+          description: 'Error: Something went wrong'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   '/addons/{addon_id}/coupons':
     get:
       summary: Fetch all the coupons for an addon
@@ -1296,23 +1330,9 @@ components:
           type: object
           properties:
             original:
-              type: object
-              properties:
-                amount:
-                  type: integer
-                  minimum: 0
-                  exclusiveMinimum: true
-                currency:
-                  type: string
+              $ref: '#/components/schemas/Money'
             purchase:
-              type: object
-              properties:
-                amount:
-                  type: integer
-                  minimum: 0
-                  exclusiveMinimum: true
-                currency:
-                  type: string
+              $ref: '#/components/schemas/Money'
         images:
           type: object
           properties:
@@ -1352,6 +1372,15 @@ components:
         - route
         - created_at
         - updated_at
+    Money:
+      type: object
+      properties:
+        amount:
+          type: string
+          format: integer
+          description: "Amount as a string specified in cents"
+        currency:
+          type: string
     AddonCoupon:
       type: object
       properties:
@@ -1388,6 +1417,65 @@ components:
         - expires_at
         - created_at
         - updated_at
+    AddonStats:
+      type: object
+      properties:
+        revenue:
+          type: object
+          properties:
+            current:
+              type: object
+              properties:
+                day:
+                  $ref: '#/components/schemas/Money'
+                month:
+                  $ref: '#/components/schemas/Money'
+            previous:
+              type: object
+              properties:
+                day:
+                  $ref: '#/components/schemas/Money'
+                month:
+                  $ref: '#/components/schemas/Money'
+            total:
+              $ref: '#/components/schemas/Money'
+        views:
+          type: object
+          properties:
+            current:
+              type: object
+              properties:
+                day:
+                  type: string
+                  format: integer
+                month:
+                  type: string
+                  format: integer
+            previous:
+              type: object
+              properties:
+                day:
+                  type: string
+                  format: integer
+                month:
+                  type: string
+                  format: integer
+        sales:
+          type: object
+          properties:
+            current:
+              type: object
+              properties:
+                day:
+                  type: string
+                  format: integer
+                week:
+                  type: string
+                  format: integer
+                month:
+                  type: string
+                  format: integer
+
     AddonDownload:
       description: '**NOTE:** The url is valid for a single use within 24 hours **ONLY**!'
       type: object
@@ -1505,12 +1593,7 @@ components:
           type: string
           format: uuid
         price:
-          type: object
-          properties:
-            amount:
-              type: string
-            currency:
-              type: string
+          $ref: '#/components/schemas/Money'
         reversed_at:
           type: string
           format: date-time
@@ -1654,4 +1737,4 @@ components:
       type: apiKey
       in: header
       name: Authorization
-      description: 'The Gmodstore API provides two methods of authentication: bearer token and query parameter. The preferred method is usingthe bearer token. To do so simply set the Authorization header to Bearer <api_key> where <api_key> is your API key. If you for some reason wish to use the API with the old way simply pass a query variable named api_key containing your API key.'
+      description: 'The GmodStore API provides two methods of authentication: bearer token and query parameter. The preferred method is using the Bearer token. To do so simply set the Authorization header to Bearer <api_key> where <api_key> is your API key. If you for some reason wish to use the API with the old way simply pass a query variable named api_key containing your API key.'
