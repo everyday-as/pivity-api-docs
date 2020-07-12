@@ -1268,9 +1268,16 @@ components:
                 type: string
                 minLength: 1
                 maxLength: 10000
+                description: >
+                  You can pass in markdown here
               file:
                 type: string
                 format: binary
+              release_type:
+                type: string
+                enum: [stable, beta, alpha, private, demo]
+                description: >
+                  This can be a value of stable, beta, alpha, private or demo
             required:
               - name
               - changelog
@@ -1290,13 +1297,13 @@ components:
                 type: string
                 minLength: 1
                 maxLength: 10000
-              file:
+                description: >
+                  You can pass in markdown here
+              release_type:
                 type: string
-                format: binary
-            required:
-              - name
-              - changelog
-              - file
+                enum: [stable, beta, alpha, private, demo]
+                description: >
+                  This can be a value of stable, beta, alpha, private or demo
     BadgeCreateBody:
       required: true
       content:
