@@ -165,6 +165,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonCouponListResponse
                 properties:
                   data:
                     type: array
@@ -185,7 +186,7 @@ paths:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/AddonCouponRelation'
       requestBody:
-        $ref: '#/components/requestBodies/AddonCouponBody'
+        $ref: '#/components/requestBodies/CreateAddonCoupon'
       responses:
         '201':
           description: 'Ok: Successfully processed the request.'
@@ -202,6 +203,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonCouponResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/AddonCoupon'
@@ -237,6 +239,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonCouponResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/AddonCoupon'
@@ -256,7 +259,7 @@ paths:
         - $ref: '#/components/parameters/CouponId'
         - $ref: '#/components/parameters/AddonCouponRelation'
       requestBody:
-        $ref: '#/components/requestBodies/AddonCouponBody'
+        $ref: '#/components/requestBodies/UpdateAddonCoupon'
       responses:
         '200':
           description: 'Ok: Successfully processed the request.'
@@ -273,6 +276,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonCouponResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/AddonCoupon'
@@ -333,6 +337,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonPurchaseListResponse
                 properties:
                   data:
                     type: array
@@ -353,7 +358,7 @@ paths:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/AddonPurchaseRelation'
       requestBody:
-        $ref: '#/components/requestBodies/AddonPurchaseCreateBody'
+        $ref: '#/components/requestBodies/CreateAddonPurchase'
       responses:
         '201':
           description: 'Ok: Successfully processed the request.'
@@ -370,6 +375,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonPurchaseResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/AddonPurchase'
@@ -405,6 +411,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonPurchaseResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/AddonPurchase'
@@ -424,7 +431,7 @@ paths:
         - $ref: '#/components/parameters/UserId'
         - $ref: '#/components/parameters/AddonPurchaseRelation'
       requestBody:
-        $ref: '#/components/requestBodies/AddonPurchaseUpdateBody'
+        $ref: '#/components/requestBodies/UpdateAddonPurchase'
       responses:
         '200':
           description: 'Ok: Successfully processed the request.'
@@ -441,6 +448,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonPurchaseResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/AddonPurchase'
@@ -475,6 +483,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonReviewListResponse
                 properties:
                   data:
                     type: array
@@ -512,6 +521,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonReviewResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/AddonReview'
@@ -546,6 +556,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonVersionListResponse
                 properties:
                   data:
                     type: array
@@ -566,7 +577,7 @@ paths:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/AddonVersionRelation'
       requestBody:
-        $ref: '#/components/requestBodies/AddonVersionCreateBody'
+        $ref: '#/components/requestBodies/CreateAddonVersion'
       responses:
         '201':
           description: 'Ok: Successfully processed the request.'
@@ -583,6 +594,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonVersionResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/AddonVersion'
@@ -618,6 +630,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonVersionResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/AddonVersion'
@@ -637,7 +650,7 @@ paths:
         - $ref: '#/components/parameters/VersionId'
         - $ref: '#/components/parameters/AddonVersionRelation'
       requestBody:
-        $ref: '#/components/requestBodies/AddonVersionUpdateBody'
+        $ref: '#/components/requestBodies/UpdateAddonVersion'
       responses:
         '200':
           description: 'Ok: Successfully processed the request.'
@@ -654,6 +667,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonVersionResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/AddonVersion'
@@ -688,6 +702,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonDownloadResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/AddonDownload'
@@ -722,6 +737,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: TeamResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/Team'
@@ -756,6 +772,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: TeamUserListResponse
                 properties:
                   data:
                     type: array
@@ -791,6 +808,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: UserResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/User'
@@ -825,6 +843,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: UserResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/User'
@@ -859,6 +878,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonListResponse
                 properties:
                   data:
                     type: array
@@ -895,6 +915,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonPurchaseListResponse
                 properties:
                   data:
                     type: array
@@ -931,6 +952,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: TeamListResponse
                 properties:
                   data:
                     type: array
@@ -966,6 +988,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: BanListResponse
                 properties:
                   data:
                     type: array
@@ -1001,6 +1024,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: BadgeListResponse
                 properties:
                   data:
                     type: array
@@ -1020,7 +1044,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/UserId'
       requestBody:
-        $ref: '#/components/requestBodies/BadgeCreateBody'
+        $ref: '#/components/requestBodies/CreateUserBadge'
       responses:
         '201':
           description: 'Ok: Successfully processed the request.'
@@ -1037,6 +1061,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: BadgeResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/UserBadgeLegend'
@@ -1245,42 +1270,48 @@ components:
         uniqueItems: true
 
   requestBodies:
-    AddonCouponBody:
+    CreateAddonCoupon:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/AddonCouponBody'
-    AddonPurchaseCreateBody:
+            $ref: '#/components/schemas/NewAddonCoupon'
+    UpdateAddonCoupon:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/AddonPurchaseCreateBody'
-    AddonPurchaseUpdateBody:
+            $ref: '#/components/schemas/UpdateAddonCoupon'
+    CreateAddonPurchase:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/AddonPurchaseUpdateBody'
-    AddonVersionCreateBody:
+            $ref: '#/components/schemas/NewAddonPurchase'
+    UpdateAddonPurchase:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateAddonPurchase'
+    CreateAddonVersion:
       required: true
       content:
         multipart/form-data:
           schema:
-            $ref: '#/components/schemas/AddonVersionCreateBody'
-    AddonVersionUpdateBody:
+            $ref: '#/components/schemas/NewAddonVersion'
+    UpdateAddonVersion:
       required: true
       content:
         multipart/form-data:
           schema:
-            $ref: '#/components/schemas/AddonVersionUpdateBody'
-    BadgeCreateBody:
+            $ref: '#/components/schemas/UpdateAddonVersion'
+    CreateUserBadge:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/BadgeCreateBody'
+            $ref: '#/components/schemas/NewUserBadge'
 
   schemas:
     Addon:
@@ -1705,7 +1736,7 @@ components:
           type: string
       required:
         - message
-    AddonCouponBody:
+    NewAddonCoupon:
       type: object
       properties:
         percent:
@@ -1725,21 +1756,41 @@ components:
         - code
         - max_uses
         - expires_at
-    AddonPurchaseCreateBody:
+    UpdateAddonCoupon:
+      type: object
+      properties:
+        percent:
+          type: integer
+          minimum: 1
+          maximum: 99
+        code:
+          type: string
+        max_uses:
+          type: integer
+        expires_at:
+          type: string
+          description: 'Can be maximum of two weeks into the future'
+          format: date-time
+      required:
+        - percent
+        - code
+        - max_uses
+        - expires_at
+    NewAddonPurchase:
       type: object
       properties:
         user_id:
           type: string
       required:
         - user_id
-    AddonPurchaseUpdateBody:
+    UpdateAddonPurchase:
       type: object
       properties:
         revoked:
           type: boolean
       required:
         - revoked
-    AddonVersionCreateBody:
+    NewAddonVersion:
       type: object
       properties:
         name:
@@ -1764,7 +1815,7 @@ components:
         - name
         - changelog
         - file
-    AddonVersionUpdateBody:
+    UpdateAddonVersion:
       type: object
       properties:
         name:
@@ -1782,7 +1833,7 @@ components:
           enum: [ stable, beta, alpha, private, demo ]
           description: >
             This can be a value of stable, beta, alpha, private or demo
-    BadgeCreateBody:
+    NewUserBadge:
       type: object
       properties:
         badge:
