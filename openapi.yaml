@@ -10,7 +10,7 @@ info:
 servers:
   - url: 'https://api.gmodstore.com/v2'
 security:
-  - ApiKeyAuth: []
+  - bearerAuth: []
 tags:
   - name: Rate limits
     description: 'Every request you make to the Gmodstore API will count against your rate limit, which at the time of writing this, is 60 requests / minute.
@@ -43,6 +43,7 @@ paths:
         - Addons
       parameters:
         - $ref: '#/components/parameters/AddonRelation'
+      operationId: listSelfAddons
       responses:
         '200':
           description: 'Ok: Successfully processed the request.'
@@ -78,6 +79,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/AddonRelation'
+      operationId: getAddon
       responses:
         '200':
           description: 'Ok: Successfully processed the request.'
@@ -110,6 +112,7 @@ paths:
         - Addon Stats
       parameters:
         - $ref: '#/components/parameters/AddonId'
+      operationId: getAddonStats
       responses:
         '200':
           description: 'Ok: Successfully processed the request.'
@@ -142,6 +145,7 @@ paths:
       summary: Fetch all the coupons for an addon
       tags:
         - Addon Coupons
+      operationId: listAddonCoupons
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/AddonCouponRelation'
@@ -176,6 +180,7 @@ paths:
       summary: Create an addon coupon
       tags:
         - Addon Coupons
+      operationId: createAddonCoupon
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/AddonCouponRelation'
@@ -211,6 +216,7 @@ paths:
       summary: Fetch an addon's coupon
       tags:
         - Addon Coupons
+      operationId: getAddonCoupon
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/CouponId'
@@ -244,6 +250,7 @@ paths:
       summary: Update an addon's coupon
       tags:
         - Addon Coupons
+      operationId: updateAddonCoupon
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/CouponId'
@@ -279,6 +286,7 @@ paths:
       summary: Destroy an addon's coupon
       tags:
         - Addon Coupons
+      operationId: deleteAddonCoupon
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/CouponId'
@@ -305,6 +313,7 @@ paths:
       summary: Fetch all purchases of an addon
       tags:
         - Addon Purchases
+      operationId: listAddonPurchases
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/AddonPurchaseRelation'
@@ -339,6 +348,7 @@ paths:
       summary: Create a purchase for an addon
       tags:
         - Addon Purchases
+      operationId: createAddonPurchase
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/AddonPurchaseRelation'
@@ -374,6 +384,7 @@ paths:
       summary: Get a purchase of an addon by user
       tags:
         - Addon Purchases
+      operationId: getAddonPurchase
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/UserId'
@@ -382,7 +393,7 @@ paths:
         '200':
           description: 'Ok: Successfully processed the request.'
           headers:
-            X-Ratelimit-Limit:
+            X-RateLimit-Limit:
               schema:
                 type: integer
               description: Request limit per minute.
@@ -407,6 +418,7 @@ paths:
       summary: Update a purchase for an addon
       tags:
         - Addon Purchases
+      operationId: updateAddonPurchase
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/UserId'
@@ -443,6 +455,7 @@ paths:
       summary: Fetch all the reviews of an addon
       tags:
         - Addon Reviews
+      operationId: listAddonReviews
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/AddonReviewRelation'
@@ -478,6 +491,7 @@ paths:
       summary: Fetch a review of an addon
       tags:
         - Addon Reviews
+      operationId: getAddonReview
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/ReviewId'
@@ -512,6 +526,7 @@ paths:
       summary: Fetch all the versions of an addon
       tags:
         - Addon Versions
+      operationId: listAddonVersions
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/AddonVersionRelation'
@@ -546,6 +561,7 @@ paths:
       summary: Create a new version for an addon
       tags:
         - Addon Versions
+      operationId: createAddonVersion
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/AddonVersionRelation'
@@ -581,6 +597,7 @@ paths:
       summary: Fetch a specific version of an addon
       tags:
         - Addon Versions
+      operationId: getAddonVersion
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/VersionId'
@@ -614,6 +631,7 @@ paths:
       summary: Update a version of an addon
       tags:
         - Addon Versions
+      operationId: updateAddonVersion
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/VersionId'
@@ -650,6 +668,7 @@ paths:
       summary: Generate a download token for a specific version of an addon
       tags:
         - Addon Versions
+      operationId: downloadAddonVersion
       parameters:
         - $ref: '#/components/parameters/AddonId'
         - $ref: '#/components/parameters/VersionId'
@@ -683,6 +702,7 @@ paths:
       summary: Fetch a single team
       tags:
         - Teams
+      operationId: getTeam
       parameters:
         - $ref: '#/components/parameters/TeamId'
         - $ref: '#/components/parameters/TeamRelation'
@@ -716,6 +736,7 @@ paths:
       summary: Fetch all the users in the given team
       tags:
         - Team Users
+      operationId: listTeamUsers
       parameters:
         - $ref: '#/components/parameters/TeamId'
         - $ref: '#/components/parameters/TeamUserRelation'
@@ -751,6 +772,7 @@ paths:
       summary: Fetches the current user (API Key Owner)
       tags:
         - Users
+      operationId: getSelfUser
       parameters:
         - $ref: '#/components/parameters/UserRelation'
       responses:
@@ -783,6 +805,7 @@ paths:
       summary: Fetch a single user
       tags:
         - Users
+      operationId: getUser
       parameters:
         - $ref: '#/components/parameters/UserId'
         - $ref: '#/components/parameters/UserRelation'
@@ -816,6 +839,7 @@ paths:
       summary: Fetch all the addons authored / co-authored by a user
       tags:
         - User Addons
+      operationId: listUserAddons
       parameters:
         - $ref: '#/components/parameters/UserId'
         - $ref: '#/components/parameters/AddonRelation'
@@ -851,6 +875,7 @@ paths:
       summary: Fetch all purchases a user has made
       tags:
         - User Purchases
+      operationId: listUserPurchases
       parameters:
         - $ref: '#/components/parameters/UserId'
         - $ref: '#/components/parameters/AddonPurchaseRelation'
@@ -886,6 +911,7 @@ paths:
       summary: Fetch all the teams of a user
       tags:
         - User Teams
+      operationId: listUserTeams
       parameters:
         - $ref: '#/components/parameters/UserId'
         - $ref: '#/components/parameters/TeamRelation'
@@ -921,6 +947,7 @@ paths:
       summary: Fetch all active bans associated with this user
       tags:
         - User Bans
+      operationId: listUserBans
       parameters:
         - $ref: '#/components/parameters/UserId'
       responses:
@@ -955,6 +982,7 @@ paths:
       summary: Fetch all the badges a user has
       tags:
         - User Badges
+      operationId: listUserBadges
       parameters:
         - $ref: '#/components/parameters/UserId'
       responses:
@@ -988,6 +1016,7 @@ paths:
       summary: Give a user a badge
       tags:
         - User Badges
+      operationId: createUserBadge
       parameters:
         - $ref: '#/components/parameters/UserId'
       requestBody:
@@ -1022,6 +1051,7 @@ paths:
       summary: Destroy a users's badge
       tags:
         - User Badges
+      operationId: deleteUserBadge
       parameters:
         - $ref: '#/components/parameters/UserId'
         - $ref: '#/components/parameters/BadgeId'
@@ -1118,6 +1148,7 @@ components:
           enum:
             - latest_version
             - team
+        uniqueItems: true
     AddonCouponRelation:
       name: with
       in: query
@@ -1130,6 +1161,7 @@ components:
           type: string
           enum:
             - addon
+        uniqueItems: true
     AddonPurchaseRelation:
       name: with
       in: query
@@ -1144,6 +1176,7 @@ components:
             - addon
             - order_item
             - user
+        uniqueItems: true
     AddonReviewRelation:
       name: with
       in: query
@@ -1157,6 +1190,7 @@ components:
           enum:
             - addon
             - author
+        uniqueItems: true
     AddonVersionRelation:
       name: with
       in: query
@@ -1169,6 +1203,7 @@ components:
           type: string
           enum:
             - addon
+        uniqueItems: true
     TeamRelation:
       name: with
       in: query
@@ -1181,6 +1216,7 @@ components:
           type: string
           enum:
             - primaryAuthor
+        uniqueItems: true
     TeamUserRelation:
       name: with
       in: query
@@ -1193,6 +1229,7 @@ components:
           type: string
           enum:
             - user
+        uniqueItems: true
     UserRelation:
       name: with
       in: query
@@ -1205,6 +1242,7 @@ components:
           type: string
           enum:
             - group
+        uniqueItems: true
 
   requestBodies:
     AddonCouponBody:
@@ -1212,109 +1250,37 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              percent:
-                type: integer
-                minimum: 1
-                maximum: 99
-              code:
-                type: string
-              max_uses:
-                type: integer
-              expires_at:
-                type: string
-                description: 'Can be maximum of two weeks into the future'
-                format: date-time
-            required:
-              - percent
-              - code
-              - max_uses
-              - expires_at
+            $ref: '#/components/schemas/AddonCouponBody'
     AddonPurchaseCreateBody:
       required: true
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              user_id:
-                type: string
-            required:
-              - user_id
+            $ref: '#/components/schemas/AddonPurchaseCreateBody'
     AddonPurchaseUpdateBody:
       required: true
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              revoked:
-                type: boolean
-            required:
-              - revoked
+            $ref: '#/components/schemas/AddonPurchaseUpdateBody'
     AddonVersionCreateBody:
       required: true
       content:
         multipart/form-data:
           schema:
-            type: object
-            properties:
-              name:
-                type: string
-                minLength: 1
-                maxLength: 80
-              changelog:
-                type: string
-                minLength: 1
-                maxLength: 10000
-                description: >
-                  You can pass in markdown here
-              file:
-                type: string
-                format: binary
-              release_type:
-                type: string
-                enum: [stable, beta, alpha, private, demo]
-                description: >
-                  This can be a value of stable, beta, alpha, private or demo
-            required:
-              - name
-              - changelog
-              - file
+            $ref: '#/components/schemas/AddonVersionCreateBody'
     AddonVersionUpdateBody:
       required: true
       content:
         multipart/form-data:
           schema:
-            type: object
-            properties:
-              name:
-                type: string
-                minLength: 1
-                maxLength: 80
-              changelog:
-                type: string
-                minLength: 1
-                maxLength: 10000
-                description: >
-                  You can pass in markdown here
-              release_type:
-                type: string
-                enum: [stable, beta, alpha, private, demo]
-                description: >
-                  This can be a value of stable, beta, alpha, private or demo
+            $ref: '#/components/schemas/AddonVersionUpdateBody'
     BadgeCreateBody:
       required: true
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              badge:
-                type: string
-            required:
-              - badge
+            $ref: '#/components/schemas/BadgeCreateBody'
 
   schemas:
     Addon:
@@ -1739,10 +1705,99 @@ components:
           type: string
       required:
         - message
+    AddonCouponBody:
+      type: object
+      properties:
+        percent:
+          type: integer
+          minimum: 1
+          maximum: 99
+        code:
+          type: string
+        max_uses:
+          type: integer
+        expires_at:
+          type: string
+          description: 'Can be maximum of two weeks into the future'
+          format: date-time
+      required:
+        - percent
+        - code
+        - max_uses
+        - expires_at
+    AddonPurchaseCreateBody:
+      type: object
+      properties:
+        user_id:
+          type: string
+      required:
+        - user_id
+    AddonPurchaseUpdateBody:
+      type: object
+      properties:
+        revoked:
+          type: boolean
+      required:
+        - revoked
+    AddonVersionCreateBody:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 80
+        changelog:
+          type: string
+          minLength: 1
+          maxLength: 10000
+          description: >
+            You can pass in markdown here
+        file:
+          type: string
+          format: binary
+        release_type:
+          type: string
+          enum: [stable, beta, alpha, private, demo]
+          description: >
+            This can be a value of stable, beta, alpha, private or demo
+      required:
+        - name
+        - changelog
+        - file
+    AddonVersionUpdateBody:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 80
+        changelog:
+          type: string
+          minLength: 1
+          maxLength: 10000
+          description: >
+            You can pass in markdown here
+        release_type:
+          type: string
+          enum: [stable, beta, alpha, private, demo]
+          description: >
+            This can be a value of stable, beta, alpha, private or demo
+    BadgeCreateBody:
+      type: object
+      properties:
+        badge:
+          type: string
+      required:
+        - badge
 
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       in: header
       name: Authorization
+      description: 'The GmodStore API provides two methods of authentication: bearer token and query parameter. The preferred method is using the Bearer token. To do so simply set the Authorization header to Bearer <api_key> where <api_key> is your API key. If you for some reason wish to use the API with the old way simply pass a query variable named api_key containing your API key. To generate your API key head over to https://www.gmodstore.com/settings/apikeys .'
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
       description: 'The GmodStore API provides two methods of authentication: bearer token and query parameter. The preferred method is using the Bearer token. To do so simply set the Authorization header to Bearer <api_key> where <api_key> is your API key. If you for some reason wish to use the API with the old way simply pass a query variable named api_key containing your API key. To generate your API key head over to https://www.gmodstore.com/settings/apikeys .'
