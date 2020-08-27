@@ -162,7 +162,7 @@ jobs:
             -g ${{ env.LANGUAGE }} \
             -c sdk-configs/${{ env.LANGUAGE }}.json \
             -o .autogen/${{ env.LANGUAGE }} \
-            --enable-post-process-files
+            --enable-post-process-file
       - name: Commit files
         run: |
           cd .autogen/${{ env.LANGUAGE }}
