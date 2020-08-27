@@ -1,6 +1,6 @@
 {
   "gitUserId": "everyday-as",
   "gitRepoId": "gmodstore-sdk",
-  "invokerPackage": "Everyday\\GmodStoreSDK",
+  "invokerPackage": "Everyday\\GmodStore\\SDK",
   "packagePath": "."
 }
