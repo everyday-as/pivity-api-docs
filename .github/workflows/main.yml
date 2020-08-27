@@ -136,6 +136,7 @@ jobs:
     env:
       LANGUAGE: csharp-netcore
       CSHARP_POST_PROCESS_FILE: uncrustify --no-backup
+      UNCRUSTIFY_CONFIG: uncrustify/default.cfg
     steps:
       - uses: actions/checkout@master
       - name: Clone SDK repository
