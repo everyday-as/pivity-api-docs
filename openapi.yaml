@@ -67,11 +67,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Addon'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/addons/{addon_id}':
     get:
       summary: Fetch a single addon
@@ -102,11 +98,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/Addon'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/addons/{addon_id}/stats':
     get:
       summary: Fetch all the stats for an addon
@@ -138,11 +130,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/AddonStats'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/addons/{addon_id}/coupons':
     get:
       summary: Fetch all the coupons for an addon
@@ -175,11 +163,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/AddonCoupon'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
     post:
       summary: Create an addon coupon
       tags:
@@ -211,11 +195,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/AddonCoupon'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/addons/{addon_id}/coupons/{coupon_id}':
     get:
       summary: Fetch an addon's coupon
@@ -247,11 +227,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/AddonCoupon'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
     put:
       summary: Update an addon's coupon
       tags:
@@ -284,11 +260,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/AddonCoupon'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
     delete:
       summary: Destroy an addon's coupon
       tags:
@@ -310,11 +282,7 @@ paths:
                 type: integer
               description: The number of requests left for the time window.
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/addons/{addon_id}/purchases':
     get:
       summary: Fetch all purchases of an addon
@@ -347,11 +315,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/AddonPurchase'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
     post:
       summary: Create a purchase for an addon
       tags:
@@ -383,11 +347,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/AddonPurchase'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/addons/{addon_id}/purchases/{user_id}':
     get:
       summary: Get a purchase of an addon by user
@@ -419,11 +379,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/AddonPurchase'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
     put:
       summary: Update a purchase for an addon
       tags:
@@ -456,11 +412,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/AddonPurchase'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/addons/{addon_id}/reviews':
     get:
       summary: Fetch all the reviews of an addon
@@ -493,11 +445,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/AddonReview'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/addons/{addon_id}/reviews/{review_id}':
     get:
       summary: Fetch a review of an addon
@@ -529,11 +477,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/AddonReview'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/addons/{addon_id}/versions':
     get:
       summary: Fetch all the versions of an addon
@@ -566,11 +510,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/AddonVersion'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
     post:
       summary: Create a new version for an addon
       tags:
@@ -602,11 +542,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/AddonVersion'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/addons/{addon_id}/versions/{version_id}':
     get:
       summary: Fetch a specific version of an addon
@@ -638,11 +574,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/AddonVersion'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
     put:
       summary: Update a version of an addon
       tags:
@@ -675,11 +607,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/AddonVersion'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/addons/{addon_id}/versions/{version_id}/download':
     get:
       summary: Generate a download token for a specific version of an addon
@@ -710,11 +638,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/AddonDownload'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/teams/{team_id}':
     get:
       summary: Fetch a single team
@@ -745,11 +669,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/Team'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/teams/{team_id}/users':
     get:
       summary: Fetch all the users in the given team
@@ -782,11 +702,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/TeamUser'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   /users/me:
     get:
       summary: Fetches the current user (API Key Owner)
@@ -816,11 +732,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/User'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/users/{user_id}':
     get:
       summary: Fetch a single user
@@ -851,11 +763,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/User'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/users/{user_id}/addons':
     get:
       summary: Fetch all the addons authored / co-authored by a user
@@ -888,11 +796,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Addon'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/users/{user_id}/purchases':
     get:
       summary: Fetch all purchases a user has made
@@ -925,11 +829,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/AddonPurchase'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/users/{user_id}/teams':
     get:
       summary: Fetch all the teams of a user
@@ -962,11 +862,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Team'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/users/{user_id}/bans':
     get:
       summary: Fetch all active bans associated with this user
@@ -998,11 +894,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Ban'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/users/{user_id}/badges':
     get:
       summary: Fetch all the badges a user has
@@ -1034,11 +926,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/UserBadgeLegend'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
     post:
       summary: Give a user a badge
       tags:
@@ -1069,11 +957,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/UserBadgeLegend'
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   '/users/{user_id}/badges/{badge_id}':
     delete:
       summary: Destroy a users's badge
@@ -1096,14 +980,7 @@ paths:
                 type: integer
               description: The number of requests left for the time window.
         default:
-          description: 'Error: Something went wrong'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
 
 components:
   parameters:
@@ -1315,6 +1192,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/NewUserBadge'
+
+  responses:
+    Error:
+      description: 'Error: Something went wrong'
+      content:
+        application/json:
+          schema:
+            type: object
+            title: ErrorResponse
+            properties:
+              data:
+                $ref: '#/components/schemas/Error'
 
   schemas:
     Addon:
@@ -1734,6 +1623,7 @@ components:
         - description
     Error:
       type: object
+      title: ErrorResponse
       properties:
         message:
           type: string
