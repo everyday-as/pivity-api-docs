@@ -10,7 +10,7 @@ info:
 servers:
   - url: 'https://api.gmodstore.com/v2'
 security:
-  - bearerAuth: []
+  - bearerAuth: [ ]
 tags:
   - name: Rate limits
     description: 'Every request you make to the Gmodstore API will count against your rate limit, which at the time of writing this, is 60 requests / minute.
@@ -48,7 +48,7 @@ paths:
         '200':
           description: 'Ok: Successfully processed the request.'
           headers:
-            X-Ratelimit-Limit:
+            X-RateLimit-Limit:
               schema:
                 type: integer
               description: Request limit per minute.
@@ -1757,7 +1757,7 @@ components:
           format: binary
         release_type:
           type: string
-          enum: [stable, beta, alpha, private, demo]
+          enum: [ stable, beta, alpha, private, demo ]
           description: >
             This can be a value of stable, beta, alpha, private or demo
       required:
@@ -1779,7 +1779,7 @@ components:
             You can pass in markdown here
         release_type:
           type: string
-          enum: [stable, beta, alpha, private, demo]
+          enum: [ stable, beta, alpha, private, demo ]
           description: >
             This can be a value of stable, beta, alpha, private or demo
     BadgeCreateBody:
@@ -1791,11 +1791,6 @@ components:
         - badge
 
   securitySchemes:
-    ApiKeyAuth:
-      type: apiKey
-      in: header
-      name: Authorization
-      description: 'The GmodStore API provides two methods of authentication: bearer token and query parameter. The preferred method is using the Bearer token. To do so simply set the Authorization header to Bearer <api_key> where <api_key> is your API key. If you for some reason wish to use the API with the old way simply pass a query variable named api_key containing your API key. To generate your API key head over to https://www.gmodstore.com/settings/apikeys .'
     bearerAuth:
       type: http
       scheme: bearer
