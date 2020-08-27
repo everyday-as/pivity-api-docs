@@ -199,7 +199,7 @@ jobs:
             -i openapi.yaml \
             -g ${{ env.LANGUAGE }} \
             -c sdk-configs/${{ env.LANGUAGE }}.json \
-            -o .autogen/${{ env.LANGUAGE }}
+            -o .autogen/${{ env.LANGUAGE }} \
             -t D:\IntelliJ\gmodstore-api-docs\sdk-templates\${{ env.LANGUAGE }}
       - name: Commit files
         run: |
