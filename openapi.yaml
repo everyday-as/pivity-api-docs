@@ -1846,4 +1846,4 @@ components:
       type: http
       scheme: bearer
       bearerFormat: API Key
-      description: 'The GmodStore API provides two methods of authentication: bearer token and query parameter. The preferred method is using the Bearer token. To do so simply set the Authorization header to Bearer <api_key> where <api_key> is your API key. If you for some reason wish to use the API with the old way simply pass a query variable named api_key containing your API key. To generate your API key head over to https://www.gmodstore.com/settings/apikeys .'
+      description: 'The GmodStore API provides two methods of authentication: bearer token and query parameter. The preferred method is using the Bearer token. To do so simply set the Authorization header to `Bearer <api_key>` where `<api_key>` is your API key. If you for some reason wish to use the API with the old way simply pass a query variable named api_key containing your API key. To generate your API key head over to https://www.gmodstore.com/settings/apikeys .'
