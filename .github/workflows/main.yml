@@ -139,7 +139,7 @@ jobs:
       - name: Clone SDK repository
         uses: actions/checkout@master
         with:
-          repository: everyday-as/gmodstore-${{ env.LANGUAGE }}-sdk
+          repository: everyday-as/gmodstore-csharp-sdk
           token: ${{ secrets.ACCESS_TOKEN }}
           path: '.autogen/${{ env.LANGUAGE }}'
       - name: Install Java runtime
