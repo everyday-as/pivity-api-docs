@@ -1280,6 +1280,12 @@ components:
           type: string
         slug:
           type: string
+        reputation:
+          type: integer
+          format: int64
+        team_reputation:
+          type: integer
+          format: int64
         ban_properties:
           $ref: '#/components/schemas/UserBanProperties'
         group:
