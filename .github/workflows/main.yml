@@ -170,7 +170,7 @@ jobs:
         with:
           directory: ".autogen/${{ env.LANGUAGE }}"
           github_token: ${{ secrets.ACCESS_TOKEN }}
-          repository: "everyday-as/gmodstore-${{ env.LANGUAGE }}-sdk"
+          repository: "everyday-as/gmodstore-csharp-sdk"
   build-javascript-sdk:
     runs-on: ubuntu-latest
     env:
