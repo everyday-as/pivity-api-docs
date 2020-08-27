@@ -60,6 +60,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonListResponse
                 properties:
                   data:
                     type: array
@@ -96,6 +97,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/Addon'
@@ -129,6 +131,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: AddonStatsListResponse
                 properties:
                   data:
                     type: array
