@@ -135,6 +135,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       LANGUAGE: csharp-netcore
+      CSHARP_POST_PROCESS_FILE: uncrustify --no-backup
     steps:
       - uses: actions/checkout@master
       - name: Clone SDK repository
@@ -151,6 +152,8 @@ jobs:
           architecture: x64
       - name: Get OpenApi Codegen CLI
         run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0-beta/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
+      - name: Install uncrustify
+        run: apt install uncrustify
       - name: Generate SDK
         run: |
           rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
@@ -158,7 +161,8 @@ jobs:
             -i openapi.yaml \
             -g ${{ env.LANGUAGE }} \
             -c sdk-configs/${{ env.LANGUAGE }}.json \
-            -o .autogen/${{ env.LANGUAGE }}
+            -o .autogen/${{ env.LANGUAGE }} \
+            --enable-post-process-files
       - name: Commit files
         run: |
           cd .autogen/${{ env.LANGUAGE }}
