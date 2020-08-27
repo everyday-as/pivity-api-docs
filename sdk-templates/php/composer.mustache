@@ -1,0 +1,40 @@
+{
+    "name": "{{gitUserId}}/{{gitRepoId}}",
+    {{#artifactVersion}}
+    "version": "{{artifactVersion}}",
+    {{/artifactVersion}}
+    "type": "library",
+    "description": "{{{appDescription}}}",
+    "keywords": [
+        "gmodstore",
+        "php",
+        "sdk",
+        "api"
+    ],
+    "homepage": "https://github.com/everyday-as/gmodstore-php-sdk",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Everyday AS and contributors",
+            "email": "system@everyday.no",
+            "homepage": "https://everyday.no"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0 || ^9.0",
+        "friendsofphp/php-cs-fixer": "^2.12"
+    },
+    "autoload": {
+        "psr-4": { "{{escapedInvokerPackage}}\\" : "{{srcBasePath}}/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "{{escapedInvokerPackage}}\\" : "{{testBasePath}}/" }
+    }
+}
