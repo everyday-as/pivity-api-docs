@@ -1,0 +1,8 @@
+{
+  "packageName": "GmodStore SDK",
+  "gitUserId": "everyday",
+  "gitRepoId": "gmodstore-sdk",
+  "invokerPackage": "Everyday\\GmodStore\\Sdk",
+  "packagePath": ".",
+  "infoUrl": "https://docs.gmodstore.com"
+}
