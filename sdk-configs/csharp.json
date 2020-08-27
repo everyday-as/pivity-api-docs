@@ -1,6 +1,6 @@
 {
   "packagePath": ".",
-  "packageName": "NO.Everyday.GmodStoreSDK",
+  "packageName": "Everyday.GmodStore.Sdk",
   "packageVersion": "1.0.0",
   "netCoreProjectFile": true
 }
