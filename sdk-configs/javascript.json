@@ -4,6 +4,5 @@
   "gitRepoId": "gmodstore-sdk",
   "invokerPackage": "Everyday\\GmodStore\\Sdk",
   "packagePath": ".",
-  "infoUrl": "https://docs.gmodstore.com",
-  "variableNamingConvention": "camelCase"
+  "infoUrl": "https://docs.gmodstore.com"
 }

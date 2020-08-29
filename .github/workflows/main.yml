@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 env:
-  SWAGGER_CODEGEN_CLI_VERSION: 3.0.14
+  OPENAPI_CODEGEN_CLI_VERSION: 5.0.0-beta
   JAVA_VERSION: 9.0.4
 
 jobs:
@@ -25,17 +25,17 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           java-package: jdk
           architecture: x64
-      - name: Get Swagger Codegen CLI
-        run: wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/${{ env.SWAGGER_CODEGEN_CLI_VERSION }}/swagger-codegen-cli-${{ env.SWAGGER_CODEGEN_CLI_VERSION }}.jar -O swagger-codegen-cli.jar
+      - name: Get OpenApi Codegen CLI
+        run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0-beta/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
       - name: Generate SDK
         run: |
           rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
-          java -jar swagger-codegen-cli.jar generate \
+          java -jar openapi-generator-cli.jar generate \
             -i openapi.yaml \
-            -l ${{ env.LANGUAGE }} \
+            -g ${{ env.LANGUAGE }} \
             -c sdk-configs/${{ env.LANGUAGE }}.json \
-            -t sdk-templates/${{ env.LANGUAGE }} \
-            -o .autogen/${{ env.LANGUAGE }}
+            -o .autogen/${{ env.LANGUAGE }} \
+            -t sdk-templates/${{ env.LANGUAGE }}
       - name: Commit files
         run: |
           cd .autogen/${{ env.LANGUAGE }}
@@ -67,14 +67,14 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           java-package: jdk
           architecture: x64
-      - name: Get Swagger Codegen CLI
-        run: wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/${{ env.SWAGGER_CODEGEN_CLI_VERSION }}/swagger-codegen-cli-${{ env.SWAGGER_CODEGEN_CLI_VERSION }}.jar -O swagger-codegen-cli.jar
+      - name: Get OpenApi Codegen CLI
+        run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0-beta/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
       - name: Generate SDK
         run: |
-          rm -rf .autogen/${{ env.LANGUAGE }}/no .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/src .autogen/${{ env.LANGUAGE }}/README.md
-          java -jar swagger-codegen-cli.jar generate \
+          rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
+          java -jar openapi-generator-cli.jar generate \
             -i openapi.yaml \
-            -l ${{ env.LANGUAGE }} \
+            -g ${{ env.LANGUAGE }} \
             -c sdk-configs/${{ env.LANGUAGE }}.json \
             -o .autogen/${{ env.LANGUAGE }}
       - name: Commit files
@@ -108,14 +108,14 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           java-package: jdk
           architecture: x64
-      - name: Get Swagger Codegen CLI
-        run: wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/${{ env.SWAGGER_CODEGEN_CLI_VERSION }}/swagger-codegen-cli-${{ env.SWAGGER_CODEGEN_CLI_VERSION }}.jar -O swagger-codegen-cli.jar
+      - name: Get OpenApi Codegen CLI
+        run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0-beta/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
       - name: Generate SDK
         run: |
-          rm -rf .autogen/${{ env.LANGUAGE }}/test .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/gmodstore_sdk .autogen/${{ env.LANGUAGE }}/README.md
-          java -jar swagger-codegen-cli.jar generate \
+          rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
+          java -jar openapi-generator-cli.jar generate \
             -i openapi.yaml \
-            -l ${{ env.LANGUAGE }} \
+            -g ${{ env.LANGUAGE }} \
             -c sdk-configs/${{ env.LANGUAGE }}.json \
             -o .autogen/${{ env.LANGUAGE }}
       - name: Commit files
@@ -131,10 +131,56 @@ jobs:
           directory: ".autogen/${{ env.LANGUAGE }}"
           github_token: ${{ secrets.ACCESS_TOKEN }}
           repository: "everyday-as/gmodstore-${{ env.LANGUAGE }}-sdk"
-  build-csharp-sdk:
+  build-csharp-netcore-sdk:
     runs-on: ubuntu-latest
     env:
-      LANGUAGE: csharp
+      LANGUAGE: csharp-netcore
+#      CSHARP_POST_PROCESS_FILE: uncrustify --no-backup
+#      UNCRUSTIFY_CONFIG: uncrustify/default.cfg
+    steps:
+      - uses: actions/checkout@master
+      - name: Clone SDK repository
+        uses: actions/checkout@master
+        with:
+          repository: everyday-as/gmodstore-csharp-sdk
+          token: ${{ secrets.ACCESS_TOKEN }}
+          path: '.autogen/${{ env.LANGUAGE }}'
+      - name: Install Java runtime
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          java-package: jdk
+          architecture: x64
+      - name: Get OpenApi Codegen CLI
+        run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0-beta/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
+#      - name: Install uncrustify
+#        run: sudo apt-get install uncrustify -y
+      - name: Generate SDK
+        run: |
+          rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
+          java -jar openapi-generator-cli.jar generate \
+            -i openapi.yaml \
+            -g ${{ env.LANGUAGE }} \
+            -c sdk-configs/${{ env.LANGUAGE }}.json \
+            -o .autogen/${{ env.LANGUAGE }} \
+            --enable-post-process-file
+      - name: Commit files
+        run: |
+          cd .autogen/${{ env.LANGUAGE }}
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Automatic sync" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          directory: ".autogen/${{ env.LANGUAGE }}"
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          repository: "everyday-as/gmodstore-csharp-sdk"
+  build-javascript-sdk:
+    runs-on: ubuntu-latest
+    env:
+      LANGUAGE: javascript
     steps:
       - uses: actions/checkout@master
       - name: Clone SDK repository
@@ -149,16 +195,17 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           java-package: jdk
           architecture: x64
-      - name: Get Swagger Codegen CLI
-        run: wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/${{ env.SWAGGER_CODEGEN_CLI_VERSION }}/swagger-codegen-cli-${{ env.SWAGGER_CODEGEN_CLI_VERSION }}.jar -O swagger-codegen-cli.jar
+      - name: Get OpenApi Codegen CLI
+        run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0-beta/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
       - name: Generate SDK
         run: |
-          rm -rf .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/src .autogen/${{ env.LANGUAGE }}/README.md
-          java -jar swagger-codegen-cli.jar generate \
+          rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
+          java -jar openapi-generator-cli.jar generate \
             -i openapi.yaml \
-            -l ${{ env.LANGUAGE }} \
+            -g ${{ env.LANGUAGE }} \
             -c sdk-configs/${{ env.LANGUAGE }}.json \
-            -o .autogen/${{ env.LANGUAGE }}
+            -o .autogen/${{ env.LANGUAGE }} \
+            -t sdk-templates/${{ env.LANGUAGE }}
       - name: Commit files
         run: |
           cd .autogen/${{ env.LANGUAGE }}
@@ -172,3 +219,4 @@ jobs:
           directory: ".autogen/${{ env.LANGUAGE }}"
           github_token: ${{ secrets.ACCESS_TOKEN }}
           repository: "everyday-as/gmodstore-${{ env.LANGUAGE }}-sdk"
+

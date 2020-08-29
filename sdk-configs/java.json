@@ -1,4 +1,5 @@
 {
+  "appName": "GmodStore API",
   "sourceFolder": ".",
   "invokerPackage": "no.everyday.gmodstore-sdk",
   "modelPackage": "no.everyday.gmodstore-sdk.model",
@@ -16,5 +17,6 @@
   "developerOrganization": "Everyday AS",
   "developerOrganizationUrl": "https://everyday.no",
   "licenseName": "MIT",
-  "licenseUrl": "LICENSE"
+  "licenseUrl": "LICENSE",
+  "infoUrl": "https://docs.gmodstore.com"
 }
