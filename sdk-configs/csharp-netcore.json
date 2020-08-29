@@ -1,8 +1,12 @@
 {
-  "appName": "GmodStore API",
   "packagePath": ".",
   "packageName": "Everyday.GmodStore.Sdk",
-  "packageVersion": "1.0.0",
+  "packageVersion": "1.0.1",
+  "packageAuthors": "Everyday AS and contributors",
+  "packageCompany": "Everyday AS",
+  "packageDescription": "You can use this package to access GmodStore API endpoints, which can be used interact with GmodStore programmatically.",
+  "gitUserId": "everyday",
+  "gitRepoId": "gmodstore-csharp-sdk",
   "netCoreProjectFile": true,
   "infoUrl": "https://docs.gmodstore.com"
 }
