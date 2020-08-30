@@ -919,6 +919,34 @@ paths:
               $ref: '#/components/headers/xRateLimitRemaining'
         default:
           $ref: '#/components/responses/Error'
+  '/permission-groups':
+    get:
+      summary: Fetches all available permission groups
+      tags:
+        - Permission Groups
+      operationId: getPermissionGroups
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: PermissionGroupListResponse
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PermissionGroup'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
 
 components:
   schemas:
