@@ -924,7 +924,7 @@ paths:
       summary: Fetches all available permission groups
       tags:
         - Permission Groups
-      operationId: getPermissionGroups
+      operationId: listPermissionGroups
       responses:
         '200':
           description: Successfully processed the request.
