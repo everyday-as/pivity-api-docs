@@ -1444,8 +1444,7 @@ components:
       description: Id of the badge
       required: true
       schema:
-        type: integer
-        format: string
+        type: string
 
     AddonRelation:
       name: with
