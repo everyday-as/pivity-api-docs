@@ -1120,7 +1120,7 @@ components:
           readOnly: true
           format: date-time
         updated_at:
-          type: integer
+          type: string
           readOnly: true
           format: date-time
         addon:
@@ -1278,6 +1278,7 @@ components:
           format: date-time
         updated_at:
           type: string
+          readOnly: true
           format: date-time
         primaryAuthor:
           $ref: '#/components/schemas/TeamUser'
