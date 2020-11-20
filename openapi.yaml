@@ -28,6 +28,7 @@ tags:
   - name: Addon Stats
   - name: Teams
   - name: Team Users
+  - name: Team Addons
   - name: Users
   - name: User Addons
   - name: User Purchases
@@ -639,6 +640,36 @@ paths:
       parameters:
         - $ref: '#/components/parameters/TeamId'
         - $ref: '#/components/parameters/TeamUserRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: TeamUserListResponse
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TeamUser'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/teams/{team_id}/addons':
+    get:
+      summary: Fetch all the addons in the given team
+      tags:
+        - Team Addons
+      operationId: listTeamAddons
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
       responses:
         '200':
           description: Successfully processed the request.
