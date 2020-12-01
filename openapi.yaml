@@ -602,6 +602,32 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         default:
           $ref: '#/components/responses/Error'
+  '/events/advent-calendar/stats':
+    get:
+      summary: Fetch statistics relating to the advent calendar event
+      tags:
+        - Advent Calendar
+      operationId: getAdventCalendarStats
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AdventCalendarStatsResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AdventCalendarStats'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
   '/teams/{team_id}':
     get:
       summary: Fetch a single team
@@ -1140,6 +1166,16 @@ components:
         url:
           type: string
           format: url
+
+    AdventCalendarStats:
+      type: object
+      properties:
+        squares_opened:
+          type: integer
+        addons_awarded:
+          type: integer
+        coupons_awarded:
+          type: integer
 
     AddonPurchase:
       type: object
