@@ -1083,6 +1083,10 @@ components:
           type: string
           description: A future date less than 2 weeks from today
           format: date-time
+        bound_user_id:
+          type: integer
+          writeOnly: true
+          format: int64
         created_at:
           type: string
           readOnly: true
@@ -1093,6 +1097,8 @@ components:
           format: date-time
         addon:
           $ref: '#/components/schemas/Addon'
+        bound_user:
+          $ref: '#/components/schemas/User'
       required:
         - id
         - code
@@ -1541,6 +1547,7 @@ components:
           type: string
           enum:
             - addon
+            - bound_user
         uniqueItems: true
 
     AddonPurchaseRelation:
