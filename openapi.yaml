@@ -1086,6 +1086,7 @@ components:
         bound_user_id:
           type: integer
           writeOnly: true
+          nullable: true
           format: int64
         created_at:
           type: string
@@ -1380,6 +1381,7 @@ components:
           format: uri
         country_code:
           type: string
+          nullable: true
         slug:
           type: string
         reputation:
