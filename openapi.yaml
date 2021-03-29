@@ -1364,6 +1364,8 @@ components:
           type: integer
         primary:
           type: boolean
+        percentage:
+          type: integer
         user:
           $ref: '#/components/schemas/User'
 
