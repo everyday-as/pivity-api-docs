@@ -44,7 +44,7 @@ paths:
       tags:
         - Current API Key
       parameters:
-        - $ref: '#/components/parameters/UserRelation'
+        - $ref: '#/components/parameters/ApiKeyRelation'
       operationId: getCurrentApiKey
       responses:
         '200':
@@ -1575,6 +1575,20 @@ components:
       required: true
       schema:
         type: string
+        
+    ApiKeyRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the `ApiKey`
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - user
+        uniqueItems: true
 
     AddonRelation:
       name: with
