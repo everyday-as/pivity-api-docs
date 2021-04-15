@@ -35,13 +35,14 @@ tags:
   - name: User Teams
   - name: User Bans
   - name: User Badges
+  - name: Current API Key
 
 paths:
   /me:
     get:
       summary: Get meta information about the current API key
       tags:
-        - apiKey
+        - Current API Key
       parameters:
         - $ref: '#/components/parameters/UserRelation'
       operationId: getCurrentApiKey
