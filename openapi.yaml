@@ -37,6 +37,34 @@ tags:
   - name: User Badges
 
 paths:
+  /me:
+    get:
+      summary: Get meta information about the current API key
+      tags:
+        - apiKey
+      parameters:
+        - $ref: '#/components/parameters/UserRelation'
+      operationId: getCurrentApiKey
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonListResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ApiKey'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
   /addons:
     get:
       summary: Fetch all the addons that you have access to
@@ -1007,6 +1035,29 @@ paths:
 
 components:
   schemas:
+    ApiKey:
+      type: object
+      readOnly: true
+      properties:
+        permissions:
+          type: array
+          items:
+            type: string
+            enum:
+              - addons.read
+              - addons.coupons.read
+              - addons.coupons.write
+              - addons.purchases.read
+              - addons.purchases.write
+              - addons.reviews.read
+              - teams.read
+              - users.read
+              - users.write
+              - addons.versions.read
+              - addons.versions.write
+              - addons.versions.download
+        user:
+          $ref: '#/components/schemas/User'
     Addon:
       type: object
       readOnly: true
