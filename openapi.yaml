@@ -58,7 +58,7 @@ paths:
             application/json:
               schema:
                 type: object
-                title: AddonListResponse
+                title: ApiKeyResponse
                 properties:
                   data:
                     $ref: '#/components/schemas/ApiKey'
