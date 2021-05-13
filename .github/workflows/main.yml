@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 env:
-  OPENAPI_CODEGEN_CLI_VERSION: 5.0.0-beta
+  OPENAPI_CODEGEN_CLI_VERSION: 5.1.1
   JAVA_VERSION: 9.0.4
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
           java-package: jdk
           architecture: x64
       - name: Get OpenApi Codegen CLI
-        run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0-beta/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
+        run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/${{ env.OPENAPI_CODEGEN_CLI_VERSION }}/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
       - name: Generate SDK
         run: |
           rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
@@ -68,7 +68,7 @@ jobs:
           java-package: jdk
           architecture: x64
       - name: Get OpenApi Codegen CLI
-        run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0-beta/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
+        run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/${{ env.OPENAPI_CODEGEN_CLI_VERSION }}/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
       - name: Generate SDK
         run: |
           rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
@@ -109,7 +109,7 @@ jobs:
           java-package: jdk
           architecture: x64
       - name: Get OpenApi Codegen CLI
-        run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0-beta/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
+        run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/${{ env.OPENAPI_CODEGEN_CLI_VERSION }}/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
       - name: Generate SDK
         run: |
           rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
@@ -152,7 +152,7 @@ jobs:
           java-package: jdk
           architecture: x64
       - name: Get OpenApi Codegen CLI
-        run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0-beta/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
+        run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/${{ env.OPENAPI_CODEGEN_CLI_VERSION }}/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
 #      - name: Install uncrustify
 #        run: sudo apt-get install uncrustify -y
       - name: Generate SDK
@@ -196,7 +196,7 @@ jobs:
           java-package: jdk
           architecture: x64
       - name: Get OpenApi Codegen CLI
-        run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0-beta/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
+        run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/${{ env.OPENAPI_CODEGEN_CLI_VERSION }}/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
       - name: Generate SDK
         run: |
           rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
