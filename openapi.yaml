@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: GmodStore API
   description: Welcome to the GmodStore API! You can use our API to access GmodStore API endpoints, which can be used interact with GmodStore programmatically.
-  version: 1.1.0
+  version: 1.2.0
   x-logo:
     url: https://media.gmodstore.com/_/assets/img/gmodstore.svg
     backgroundColor: '#3097d1'
@@ -1110,6 +1110,7 @@ components:
           readOnly: true
         dependent_addon:
           type: integer
+          nullable: true
           readOnly: true
         has_drm:
           type: boolean
