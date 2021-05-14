@@ -1096,6 +1096,27 @@ components:
             listing_small:
               type: string
               format: uri
+        views:
+          type: integer
+          readOnly: true
+        rating_avg:
+          type: string
+          readOnly: true
+        rating_count:
+          type: integer
+          readOnly: true
+        purchases_count:
+          type: integer
+          readOnly: true
+        dependent_addon:
+          type: integer
+          readOnly: true
+        has_drm:
+          type: boolean
+          readOnly: true
+        requires_chromium:
+          type: boolean
+          readOnly: true
         slug:
           type: string
           readOnly: true
@@ -1114,6 +1135,8 @@ components:
           $ref: '#/components/schemas/AddonVersion'
         team:
           $ref: '#/components/schemas/Team'
+        stats:
+          $ref: '#/components/schemas/AddonStats'
 
     AddonCoupon:
       type: object
@@ -1575,7 +1598,7 @@ components:
       required: true
       schema:
         type: string
-        
+
     ApiKeyRelation:
       name: with
       in: query
@@ -1603,6 +1626,7 @@ components:
           enum:
             - latest_version
             - team
+            - stats
         uniqueItems: true
 
     AddonCouponRelation:
