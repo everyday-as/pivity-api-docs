@@ -1,6 +1,7 @@
 {
   "projectName": "gmodstore-sdk",
   "packageName": "gmodstore-sdk",
+  "projectVersion": "1.2.0",
   "gitUserId": "everyday",
   "gitRepoId": "gmodstore-sdk",
   "invokerPackage": "Everyday/GmodStore/Sdk",
