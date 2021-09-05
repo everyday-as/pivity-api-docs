@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 env:
-  OPENAPI_CODEGEN_CLI_VERSION: 5.1.1
+  OPENAPI_CODEGEN_CLI_VERSION: 5.2.1
   JAVA_VERSION: 9.0.4
 
 jobs:
