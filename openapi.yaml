@@ -1065,6 +1065,7 @@ components:
       properties:
         id:
           type: integer
+          format: int64
         active:
           type: boolean
         name:
@@ -1110,6 +1111,7 @@ components:
           readOnly: true
         dependent_addon:
           type: integer
+          format: int64
           nullable: true
           readOnly: true
         has_drm:
@@ -1144,6 +1146,7 @@ components:
       properties:
         id:
           type: integer
+          format: int64
           readOnly: true
           minimum: 1
         code:
@@ -1296,6 +1299,7 @@ components:
       properties:
         id:
           type: integer
+          format: int64
         title:
           type: string
         version:
@@ -1317,6 +1321,7 @@ components:
       properties:
         id:
           type: integer
+          format: int64
           readOnly: true
         name:
           type: string
@@ -1387,6 +1392,7 @@ components:
       properties:
         id:
           type: integer
+          format: int64
         title:
           type: string
         display_order:
@@ -1421,6 +1427,7 @@ components:
       properties:
         id:
           type: integer
+          format: int64
         name:
           type: string
         created_at:
@@ -1438,6 +1445,7 @@ components:
       properties:
         team_id:
           type: integer
+          format: int64
         primary:
           type: boolean
         percentage:
