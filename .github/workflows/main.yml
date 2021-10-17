@@ -1,6 +1,9 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+    - master
 
 env:
   OPENAPI_CODEGEN_CLI_VERSION: 5.2.1
