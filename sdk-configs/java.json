@@ -5,7 +5,7 @@
   "modelPackage": "no.everyday.gmodstore-sdk.model",
   "apiPackage": "no.everyday.gmodstore-sdk.api",
   "groupId": "no.everyday",
-  "artifactVersion": "1.4.2",
+  "artifactVersion": "1.4.3",
   "artifactId": "gmodstore-sdk",
   "artifactUrl": "https://github.com/everyday-as/gmodstore-java-sdk",
   "artifactDescription": "The GmodStore API Java SDK",
