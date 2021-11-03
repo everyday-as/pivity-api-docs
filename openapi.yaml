@@ -737,12 +737,12 @@ paths:
             application/json:
               schema:
                 type: object
-                title: TeamUserListResponse
+                title: TeamAddonListResponse
                 properties:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/TeamUser'
+                      $ref: '#/components/schemas/TeamAddon'
         '429':
           $ref: '#/components/responses/TooManyRequests'
         default:
@@ -1059,6 +1059,7 @@ components:
               - addons.versions.download
         user:
           $ref: '#/components/schemas/User'
+
     Addon:
       type: object
       readOnly: true
@@ -1453,6 +1454,88 @@ components:
         user:
           $ref: '#/components/schemas/User'
 
+    TeamAddon:
+      type: object
+      readOnly: true
+      properties:
+        id:
+          type: integer
+          format: int64
+        active:
+          type: boolean
+        name:
+          type: string
+        short_description:
+          type: string
+        description:
+          type: string
+        requirements:
+          type: array
+          items:
+            type: string
+        price:
+          type: object
+          properties:
+            original:
+              $ref: '#/components/schemas/Money'
+            purchase:
+              $ref: '#/components/schemas/Money'
+        images:
+          type: object
+          properties:
+            bigspot:
+              type: string
+              format: uri
+            listing:
+              type: string
+              format: uri
+            listing_small:
+              type: string
+              format: uri
+        views:
+          type: integer
+          readOnly: true
+        rating_avg:
+          type: string
+          readOnly: true
+        rating_count:
+          type: integer
+          readOnly: true
+        purchases_count:
+          type: integer
+          readOnly: true
+        dependent_addon:
+          type: integer
+          format: int64
+          nullable: true
+          readOnly: true
+        has_drm:
+          type: boolean
+          readOnly: true
+        requires_chromium:
+          type: boolean
+          readOnly: true
+        slug:
+          type: string
+          readOnly: true
+        route:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          readOnly: true
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          format: date-time
+        latest_version:
+          $ref: '#/components/schemas/AddonVersion'
+        team:
+          $ref: '#/components/schemas/Team'
+        stats:
+          $ref: '#/components/schemas/AddonStats'
+
     User:
       type: object
       readOnly: true
@@ -1724,6 +1807,22 @@ components:
           type: string
           enum:
             - user
+        uniqueItems: true
+
+    TeamAddonRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the `TeamAddon`
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - latest_version
+            - team
+            - stats
         uniqueItems: true
 
     UserRelation:
