@@ -6,7 +6,7 @@ on:
     - master
 
 env:
-  OPENAPI_CODEGEN_CLI_VERSION: 5.2.1
+  OPENAPI_CODEGEN_CLI_VERSION: 5.3.0
   JAVA_VERSION: 9.0.4
 
 jobs:
