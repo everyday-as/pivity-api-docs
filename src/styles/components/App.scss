@@ -1,0 +1,36 @@
+.header {
+  text-align: center;
+  padding: 10px 0;
+  background: #3097d1;
+
+  &__container {
+    display: inline-block;
+
+    &__input-group {
+      display: flex;
+      align-items: center;
+
+      $background: #eaeaea;
+
+      label, select {
+        height: 34px;
+      }
+
+      label {
+        background: $background;
+        padding: 4px 8px;
+        border: 1px solid $background;
+        border-radius: 5px 0 0 5px;
+        font-weight: bold;
+      }
+
+      select {
+        padding: 5px;
+        background: #FFF;
+        border: 1px solid $background;
+        min-width: 150px;
+        border-radius: 0 5px 5px 0;
+      }
+    }
+  }
+}
