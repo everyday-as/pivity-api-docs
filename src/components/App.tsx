@@ -1,7 +1,7 @@
-import * as React from 'react';
-import '../styles/components/App.scss';
+import * as React from 'react'
+import '../styles/components/App.scss'
 
-import { RedocStandalone } from 'redoc';
+import { RedocStandalone } from 'redoc'
 import { ChangeEvent, useState } from 'react'
 
 type ApiVersion = {
@@ -10,7 +10,7 @@ type ApiVersion = {
   specUrl: string
 }
 
-const apiVersions: ApiVersion[]  = [
+const apiVersions: ApiVersion[] = [
   {
     id: '3',
     name: 'API v3',
@@ -23,13 +23,13 @@ const apiVersions: ApiVersion[]  = [
   }
 ]
 
-function App() {
+function App () {
   const [specUrl, setSpecUrl] = useState(apiVersions[0].specUrl)
 
   const changeApiVersion = (e: ChangeEvent<HTMLSelectElement>) => {
-    const apiVersion = apiVersions.find(x => x.id === e.target.value);
+    const apiVersion = apiVersions.find(x => x.id === e.target.value)
     if (!apiVersion) {
-      return;
+      return
     }
 
     setSpecUrl(apiVersion.specUrl)
@@ -49,9 +49,9 @@ function App() {
           </div>
         </div>
       </header>
-      <RedocStandalone specUrl={specUrl} />
+      <RedocStandalone specUrl={specUrl}/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
