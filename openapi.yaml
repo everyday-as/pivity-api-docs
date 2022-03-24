@@ -1195,18 +1195,23 @@ components:
               type: object
               properties:
                 day:
-                  $ref: '#/components/schemas/Money'
+                  type: string
+                  readOnly: true
                 month:
-                  $ref: '#/components/schemas/Money'
+                  type: string
+                  readOnly: true
             previous:
               type: object
               properties:
                 day:
-                  $ref: '#/components/schemas/Money'
+                  type: string
+                  readOnly: true
                 month:
-                  $ref: '#/components/schemas/Money'
+                  type: string
+                  readOnly: true
             total:
-              $ref: '#/components/schemas/Money'
+              type: string
+              readOnly: true
         views:
           type: object
           properties:
@@ -1215,19 +1220,17 @@ components:
               properties:
                 day:
                   type: string
-                  format: integer
                 month:
                   type: string
-                  format: integer
             previous:
               type: object
               properties:
                 day:
                   type: string
-                  format: integer
                 month:
                   type: string
-                  format: integer
+            total:
+              type: string
         sales:
           type: object
           properties:
@@ -1236,13 +1239,12 @@ components:
               properties:
                 day:
                   type: string
-                  format: integer
                 week:
                   type: string
-                  format: integer
                 month:
                   type: string
-                  format: integer
+            total:
+              type: string
 
     AddonDownload:
       description: '**NOTE:** The url is valid for a single use within 24 hours **ONLY**!'

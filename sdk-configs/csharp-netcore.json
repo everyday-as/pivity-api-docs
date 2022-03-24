@@ -1,7 +1,7 @@
 {
   "packagePath": ".",
   "packageName": "Everyday.GmodStore.Sdk",
-  "packageVersion": "1.6.1",
+  "packageVersion": "1.6.2",
   "packageAuthors": "Everyday AS and contributors",
   "packageCompany": "Everyday AS",
   "packageDescription": "You can use this package to access GmodStore API endpoints, which can be used interact with GmodStore programmatically.",
