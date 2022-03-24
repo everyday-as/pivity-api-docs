@@ -1228,6 +1228,9 @@ components:
                 month:
                   type: string
                   format: integer
+            total:
+              type: string
+              format: integer
         sales:
           type: object
           properties:
