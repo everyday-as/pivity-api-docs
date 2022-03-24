@@ -145,12 +145,10 @@ paths:
             application/json:
               schema:
                 type: object
-                title: AddonStatsListResponse
+                title: AddonStatsResponse
                 properties:
                   data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/AddonStats'
+                    $ref: '#/components/schemas/AddonStats'
         '429':
           $ref: '#/components/responses/TooManyRequests'
         default:
