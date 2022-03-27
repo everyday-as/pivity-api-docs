@@ -1,0 +1,1946 @@
+openapi: 3.0.1
+info:
+  title: GmodStore API
+  description: Welcome to the GmodStore API! You can use our API to access GmodStore API endpoints, which can be used interact with GmodStore programmatically.
+  version: 1.2.0
+  x-logo:
+    url: https://media.gmodstore.com/_/assets/img/gmodstore/logo.svg
+    backgroundColor: '#3097d1'
+    href: https://www.gmodstore.com
+servers:
+  - url: https://api.gmodstore.com/v2
+security:
+  - bearerAuth: [ ]
+tags:
+  - name: Rate limits
+    description: 'Every request you make to the GmodStore API will count against your rate limit, which at the time of writing this, is 60 requests / minute.
+      An up-to-date value will always provided in the `X-RateLimit-Limit` header.
+      The number of requests you have remaining before you must wait is provided in the `X-RateLimit-Remaining` header.'
+    x-traitTag: true
+  - name: API SDKs
+    description: 'For a list of available API SDKs check the README here: https://github.com/everyday-as/gmodstore-api-docs#client-libraries'
+    x-traitTag: true
+  - name: Addons
+  - name: Addon Coupons
+  - name: Addon Purchases
+  - name: Addon Reviews
+  - name: Addon Versions
+  - name: Addon Stats
+  - name: Teams
+  - name: Team Users
+  - name: Team Addons
+  - name: Users
+  - name: User Addons
+  - name: User Purchases
+  - name: User Teams
+  - name: User Bans
+  - name: User Badges
+  - name: Current API Key
+
+paths:
+  /me:
+    get:
+      summary: Get meta information about the current API key
+      tags:
+        - Current API Key
+      parameters:
+        - $ref: '#/components/parameters/ApiKeyRelation'
+      operationId: getCurrentApiKey
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: ApiKeyResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ApiKey'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  /addons:
+    get:
+      summary: Fetch all the addons that you have access to
+      tags:
+        - Addons
+      parameters:
+        - $ref: '#/components/parameters/AddonRelation'
+      operationId: listSelfAddons
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonListResponse
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Addon'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/addons/{addon_id}':
+    get:
+      summary: Fetch a single addon
+      tags:
+        - Addons
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonRelation'
+      operationId: getAddon
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Addon'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/addons/{addon_id}/stats':
+    get:
+      summary: Fetch all the stats for an addon
+      tags:
+        - Addon Stats
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+      operationId: getAddonStats
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonStatsResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonStats'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/addons/{addon_id}/coupons':
+    get:
+      summary: Fetch all the coupons for an addon
+      tags:
+        - Addon Coupons
+      operationId: listAddonCoupons
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonCouponRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonCouponListResponse
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddonCoupon'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+    post:
+      summary: Create an addon coupon
+      tags:
+        - Addon Coupons
+      operationId: createAddonCoupon
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonCouponRelation'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateAddonCoupon'
+      responses:
+        '201':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonCouponResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonCoupon'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/addons/{addon_id}/coupons/{coupon_id}':
+    get:
+      summary: Fetch an addon's coupon
+      tags:
+        - Addon Coupons
+      operationId: getAddonCoupon
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/CouponId'
+        - $ref: '#/components/parameters/AddonCouponRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonCouponResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonCoupon'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+    put:
+      summary: Update an addon's coupon
+      tags:
+        - Addon Coupons
+      operationId: updateAddonCoupon
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/CouponId'
+        - $ref: '#/components/parameters/AddonCouponRelation'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateAddonCoupon'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonCouponResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonCoupon'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+    delete:
+      summary: Destroy an addon's coupon
+      tags:
+        - Addon Coupons
+      operationId: deleteAddonCoupon
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/CouponId'
+      responses:
+        '204':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/addons/{addon_id}/purchases':
+    get:
+      summary: Fetch all purchases of an addon
+      tags:
+        - Addon Purchases
+      operationId: listAddonPurchases
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonPurchaseRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonPurchaseListResponse
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddonPurchase'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+    post:
+      summary: Create a purchase for an addon
+      tags:
+        - Addon Purchases
+      operationId: createAddonPurchase
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonPurchaseRelation'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateAddonPurchase'
+      responses:
+        '201':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonPurchaseResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonPurchase'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/addons/{addon_id}/purchases/{user_id}':
+    get:
+      summary: Get a purchase of an addon by user
+      tags:
+        - Addon Purchases
+      operationId: getAddonPurchase
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/AddonPurchaseRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonPurchaseResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonPurchase'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+    put:
+      summary: Update a purchase for an addon
+      tags:
+        - Addon Purchases
+      operationId: updateAddonPurchase
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/AddonPurchaseRelation'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateAddonPurchase'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonPurchaseResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonPurchase'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/addons/{addon_id}/reviews':
+    get:
+      summary: Fetch all the reviews of an addon
+      tags:
+        - Addon Reviews
+      operationId: listAddonReviews
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonReviewRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonReviewListResponse
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddonReview'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/addons/{addon_id}/reviews/{review_id}':
+    get:
+      summary: Fetch a review of an addon
+      tags:
+        - Addon Reviews
+      operationId: getAddonReview
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/ReviewId'
+        - $ref: '#/components/parameters/AddonReviewRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonReviewResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonReview'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/addons/{addon_id}/versions':
+    get:
+      summary: Fetch all the versions of an addon
+      tags:
+        - Addon Versions
+      operationId: listAddonVersions
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonVersionRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonVersionListResponse
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddonVersion'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+    post:
+      summary: Create a new version for an addon
+      tags:
+        - Addon Versions
+      operationId: createAddonVersion
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/AddonVersionRelation'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateAddonVersion'
+      responses:
+        '201':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonVersionResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonVersion'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/addons/{addon_id}/versions/{version_id}':
+    get:
+      summary: Fetch a specific version of an addon
+      tags:
+        - Addon Versions
+      operationId: getAddonVersion
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/VersionId'
+        - $ref: '#/components/parameters/AddonVersionRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonVersionResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonVersion'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+    put:
+      summary: Update a version of an addon
+      tags:
+        - Addon Versions
+      operationId: updateAddonVersion
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/VersionId'
+        - $ref: '#/components/parameters/AddonVersionRelation'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateAddonVersion'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonVersionResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonVersion'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/addons/{addon_id}/versions/{version_id}/download':
+    get:
+      summary: Generate a download token for a specific version of an addon
+      tags:
+        - Addon Versions
+      operationId: downloadAddonVersion
+      parameters:
+        - $ref: '#/components/parameters/AddonId'
+        - $ref: '#/components/parameters/VersionId'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonDownloadResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AddonDownload'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/events/advent-calendar/stats':
+    get:
+      summary: Fetch statistics relating to the advent calendar event
+      tags:
+        - Advent Calendar
+      operationId: getAdventCalendarStats
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AdventCalendarStatsResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AdventCalendarStats'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/teams/{team_id}':
+    get:
+      summary: Fetch a single team
+      tags:
+        - Teams
+      operationId: getTeam
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+        - $ref: '#/components/parameters/TeamRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: TeamResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Team'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/teams/{team_id}/users':
+    get:
+      summary: Fetch all the users in the given team
+      tags:
+        - Team Users
+      operationId: listTeamUsers
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+        - $ref: '#/components/parameters/TeamUserRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: TeamUserListResponse
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TeamUser'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/teams/{team_id}/addons':
+    get:
+      summary: Fetch all the addons in the given team
+      tags:
+        - Team Addons
+      operationId: listTeamAddons
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: TeamAddonListResponse
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TeamAddon'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  /users/me:
+    get:
+      summary: Fetches the current user (API Key Owner)
+      tags:
+        - Users
+      operationId: getSelfUser
+      parameters:
+        - $ref: '#/components/parameters/UserRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UserResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/users/{user_id}':
+    get:
+      summary: Fetch a single user
+      tags:
+        - Users
+      operationId: getUser
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/UserRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UserResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/users/{user_id}/addons':
+    get:
+      summary: Fetch all the addons authored / co-authored by a user
+      tags:
+        - User Addons
+      operationId: listUserAddons
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/AddonRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonListResponse
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Addon'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/users/{user_id}/purchases':
+    get:
+      summary: Fetch all purchases a user has made
+      tags:
+        - User Purchases
+      operationId: listUserPurchases
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/AddonPurchaseRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: AddonPurchaseListResponse
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AddonPurchase'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/users/{user_id}/teams':
+    get:
+      summary: Fetch all the teams of a user
+      tags:
+        - User Teams
+      operationId: listUserTeams
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/TeamRelation'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: TeamListResponse
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Team'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/users/{user_id}/bans':
+    get:
+      summary: Fetch all active bans associated with this user
+      tags:
+        - User Bans
+      operationId: listUserBans
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: UserBanListResponse
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserBan'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/users/{user_id}/badges':
+    get:
+      summary: Fetch all the badges a user has
+      tags:
+        - User Badges
+      operationId: listUserBadges
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: BadgeListResponse
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserBadgeLegend'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+    post:
+      summary: Give a user a badge
+      tags:
+        - User Badges
+      operationId: createUserBadge
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateUserBadge'
+      responses:
+        '201':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: BadgeResponse
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserBadgeLegend'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+  '/users/{user_id}/badges/{badge_id}':
+    delete:
+      summary: Destroy a users's badge
+      tags:
+        - User Badges
+      operationId: deleteUserBadge
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/BadgeId'
+      responses:
+        '204':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+        default:
+          $ref: '#/components/responses/Error'
+  '/permission-groups':
+    get:
+      summary: Fetches all available permission groups
+      tags:
+        - Permission Groups
+      operationId: listPermissionGroups
+      responses:
+        '200':
+          description: Successfully processed the request.
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/xRateLimit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/xRateLimitRemaining'
+          content:
+            application/json:
+              schema:
+                type: object
+                title: PermissionGroupListResponse
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PermissionGroup'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        default:
+          $ref: '#/components/responses/Error'
+
+components:
+  schemas:
+    ApiKey:
+      type: object
+      readOnly: true
+      properties:
+        permissions:
+          type: array
+          items:
+            type: string
+            enum:
+              - addons.read
+              - addons.coupons.read
+              - addons.coupons.write
+              - addons.purchases.read
+              - addons.purchases.write
+              - addons.reviews.read
+              - teams.read
+              - users.read
+              - users.write
+              - addons.versions.read
+              - addons.versions.write
+              - addons.versions.download
+        user:
+          $ref: '#/components/schemas/User'
+
+    Addon:
+      type: object
+      readOnly: true
+      properties:
+        id:
+          type: integer
+          format: int64
+        active:
+          type: boolean
+        name:
+          type: string
+        short_description:
+          type: string
+        description:
+          type: string
+        requirements:
+          type: array
+          items:
+            type: string
+        price:
+          type: object
+          properties:
+            original:
+              $ref: '#/components/schemas/Money'
+            purchase:
+              $ref: '#/components/schemas/Money'
+        images:
+          type: object
+          properties:
+            bigspot:
+              type: string
+              format: uri
+            listing:
+              type: string
+              format: uri
+            listing_small:
+              type: string
+              format: uri
+        views:
+          type: integer
+          readOnly: true
+        rating_avg:
+          type: string
+          readOnly: true
+        rating_count:
+          type: integer
+          readOnly: true
+        purchases_count:
+          type: integer
+          readOnly: true
+        dependent_addon:
+          type: integer
+          format: int64
+          nullable: true
+          readOnly: true
+        has_drm:
+          type: boolean
+          readOnly: true
+        requires_chromium:
+          type: boolean
+          readOnly: true
+        slug:
+          type: string
+          readOnly: true
+        route:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          readOnly: true
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          format: date-time
+        latest_version:
+          $ref: '#/components/schemas/AddonVersion'
+        team:
+          $ref: '#/components/schemas/Team'
+        stats:
+          $ref: '#/components/schemas/AddonStats'
+
+    AddonCoupon:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+          minimum: 1
+        code:
+          type: string
+        percent:
+          type: number
+          minimum: 1
+          maximum: 99
+        max_uses:
+          type: integer
+          minimum: 1
+        expires_at:
+          type: string
+          description: A future date less than 2 weeks from today
+          format: date-time
+        bound_user_id:
+          type: integer
+          writeOnly: true
+          nullable: true
+          format: int64
+        created_at:
+          type: string
+          readOnly: true
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          format: date-time
+        addon:
+          $ref: '#/components/schemas/Addon'
+        bound_user:
+          $ref: '#/components/schemas/User'
+      required:
+        - id
+        - code
+        - percent
+        - max_uses
+        - expires_at
+
+    AddonStats:
+      type: object
+      properties:
+        revenue:
+          type: object
+          properties:
+            current:
+              type: object
+              properties:
+                day:
+                  type: string
+                  readOnly: true
+                month:
+                  type: string
+                  readOnly: true
+            previous:
+              type: object
+              properties:
+                day:
+                  type: string
+                  readOnly: true
+                month:
+                  type: string
+                  readOnly: true
+            total:
+              type: string
+              readOnly: true
+        views:
+          type: object
+          properties:
+            current:
+              type: object
+              properties:
+                day:
+                  type: string
+                month:
+                  type: string
+            previous:
+              type: object
+              properties:
+                day:
+                  type: string
+                month:
+                  type: string
+            total:
+              type: string
+        sales:
+          type: object
+          properties:
+            current:
+              type: object
+              properties:
+                day:
+                  type: string
+                week:
+                  type: string
+                month:
+                  type: string
+            total:
+              type: string
+
+    AddonDownload:
+      description: '**NOTE:** The url is valid for a single use within 24 hours **ONLY**!'
+      type: object
+      properties:
+        url:
+          type: string
+          format: url
+
+    AdventCalendarStats:
+      type: object
+      properties:
+        squares_opened:
+          type: integer
+        addons_awarded:
+          type: integer
+        coupons_awarded:
+          type: integer
+
+    AddonPurchase:
+      type: object
+      properties:
+        revoked:
+          type: boolean
+        created_at:
+          type: string
+          readOnly: true
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          format: date-time
+        addon:
+          $ref: '#/components/schemas/Addon'
+        order_item:
+          $ref: '#/components/schemas/OrderItem'
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+        - revoked
+
+    NewAddonPurchase:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+      required:
+        - user_id
+
+    AddonReview:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        version:
+          type: string
+        body:
+          type: string
+        rating:
+          type: number
+          minimum: 1
+          maximum: 5
+        addon:
+          $ref: '#/components/schemas/Addon'
+        author:
+          $ref: '#/components/schemas/User'
+
+    AddonVersion:
+      type: object
+      readOnly: true
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+          minLength: 1
+          maxLength: 80
+        changelog:
+          type: string
+          minLength: 1
+          maxLength: 10000
+          description: You can pass in markdown here
+        file_hash:
+          type: string
+          readOnly: true
+        file_size:
+          type: integer
+          readOnly: true
+        release_type:
+          $ref: '#/components/schemas/AddonVersionReleaseType'
+        created_at:
+          type: string
+          readOnly: true
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          format: date-time
+        addon:
+          $ref: '#/components/schemas/Addon'
+      required:
+        - name
+        - changelog
+
+    NewAddonVersion:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 80
+        changelog:
+          type: string
+          minLength: 1
+          maxLength: 10000
+          description: You can pass in markdown here
+        file:
+          type: string
+          format: binary
+        release_type:
+          $ref: '#/components/schemas/AddonVersionReleaseType'
+      required:
+        - name
+        - changelog
+        - file
+
+    AddonVersionReleaseType:
+      type: string
+      description: This can be a value of stable, beta, alpha, private or demo
+      enum:
+        - stable
+        - beta
+        - alpha
+        - private
+        - demo
+      default: stable
+
+    PermissionGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        display_order:
+          type: integer
+
+    OrderItem:
+      type: object
+      readOnly: true
+      properties:
+        id:
+          type: string
+          format: uuid
+        price:
+          $ref: '#/components/schemas/Money'
+        reversed_at:
+          type: string
+          format: date-time
+
+    Money:
+      type: object
+      properties:
+        amount:
+          type: string
+          format: integer
+          description: Amount as a string specified in cents
+        currency:
+          type: string
+
+    Team:
+      type: object
+      readOnly: true
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          format: date-time
+        primaryAuthor:
+          $ref: '#/components/schemas/TeamUser'
+
+    TeamUser:
+      type: object
+      properties:
+        team_id:
+          type: integer
+          format: int64
+        primary:
+          type: boolean
+        percentage:
+          type: integer
+        user:
+          $ref: '#/components/schemas/User'
+
+    TeamAddon:
+      type: object
+      readOnly: true
+      properties:
+        id:
+          type: integer
+          format: int64
+        active:
+          type: boolean
+        name:
+          type: string
+        short_description:
+          type: string
+        description:
+          type: string
+        requirements:
+          type: array
+          items:
+            type: string
+        price:
+          type: object
+          properties:
+            original:
+              $ref: '#/components/schemas/Money'
+            purchase:
+              $ref: '#/components/schemas/Money'
+        images:
+          type: object
+          properties:
+            bigspot:
+              type: string
+              format: uri
+            listing:
+              type: string
+              format: uri
+            listing_small:
+              type: string
+              format: uri
+        views:
+          type: integer
+          readOnly: true
+        rating_avg:
+          type: string
+          readOnly: true
+        rating_count:
+          type: integer
+          readOnly: true
+        purchases_count:
+          type: integer
+          readOnly: true
+        dependent_addon:
+          type: integer
+          format: int64
+          nullable: true
+          readOnly: true
+        has_drm:
+          type: boolean
+          readOnly: true
+        requires_chromium:
+          type: boolean
+          readOnly: true
+        slug:
+          type: string
+          readOnly: true
+        route:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          readOnly: true
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          format: date-time
+        latest_version:
+          $ref: '#/components/schemas/AddonVersion'
+        team:
+          $ref: '#/components/schemas/Team'
+        stats:
+          $ref: '#/components/schemas/AddonStats'
+
+    User:
+      type: object
+      readOnly: true
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        avatar:
+          type: string
+          format: uri
+        country_code:
+          type: string
+          nullable: true
+        slug:
+          type: string
+        reputation:
+          type: integer
+          format: int64
+        team_reputation:
+          type: integer
+          format: int64
+        ban_properties:
+          $ref: '#/components/schemas/UserBanProperties'
+        group:
+          $ref: '#/components/schemas/PermissionGroup'
+
+    UserBan:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+        reason:
+          type: string
+        unban_reason:
+          type: string
+        properties:
+          $ref: '#/components/schemas/UserBanProperties'
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+
+    UserBanProperties:
+      type: array
+      items:
+        type: string
+        enum:
+          - everything
+          - addon.create
+          - addon.purchase
+          - addon.download
+          - addon.review
+          - addon.comment
+          - job.create
+          - job.apply
+          - job.review
+          - job.comment
+          - ban.appeal
+      uniqueItems: true
+
+    UserBadgeLegend:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        ext:
+          type: string
+
+    Error:
+      type: object
+      title: ErrorResponse
+      properties:
+        message:
+          type: string
+
+    UserBadge:
+      type: object
+      properties:
+        badge:
+          type: string
+      required:
+        - badge
+
+  parameters:
+    AddonId:
+      name: addon_id
+      in: path
+      description: Id of the addon
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+    CouponId:
+      name: coupon_id
+      in: path
+      description: Id of the coupon
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+    UserId:
+      name: user_id
+      in: path
+      description: Id of the user
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+    ReviewId:
+      name: review_id
+      in: path
+      description: Id of the review
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+    VersionId:
+      name: version_id
+      in: path
+      description: Id of the version
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+    TeamId:
+      name: team_id
+      in: path
+      description: Id of the team
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+    BadgeId:
+      name: badge_id
+      in: path
+      description: Id of the badge
+      required: true
+      schema:
+        type: string
+
+    ApiKeyRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the `ApiKey`
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - user
+        uniqueItems: true
+
+    AddonRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the `Addon`
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - latest_version
+            - team
+            - stats
+        uniqueItems: true
+
+    AddonCouponRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the `AddonCoupon`
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - addon
+            - bound_user
+        uniqueItems: true
+
+    AddonPurchaseRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the `AddonPurchase`
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - addon
+            - order_item
+            - user
+        uniqueItems: true
+
+    AddonReviewRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the `AddonReview`
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - addon
+            - author
+        uniqueItems: true
+
+    AddonVersionRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the `AddonVersion`
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - addon
+        uniqueItems: true
+
+    TeamRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the `Team`
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - primaryAuthor
+        uniqueItems: true
+
+    TeamUserRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the `TeamUser`
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - user
+        uniqueItems: true
+
+    TeamAddonRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the `TeamAddon`
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - latest_version
+            - team
+            - stats
+        uniqueItems: true
+
+    UserRelation:
+      name: with
+      in: query
+      description: The relations you want to fetch with the `User`
+      required: false
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - group
+        uniqueItems: true
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: 'The GmodStore API provides two methods of authentication: bearer token and query parameter. The preferred method is using the Bearer token. To do so simply set the `Authorization` header to `Bearer <api_key>` where `<api_key>` is your API key. If you for some reason wish to use the API with the old way simply pass a query variable named api_key containing your API key. To generate your API key head over to https://www.gmodstore.com/settings/apikeys .'
+
+  requestBodies:
+    CreateAddonCoupon:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AddonCoupon'
+
+    UpdateAddonCoupon:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AddonCoupon'
+
+    CreateAddonPurchase:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NewAddonPurchase'
+
+    UpdateAddonPurchase:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AddonPurchase'
+
+    CreateAddonVersion:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/NewAddonVersion'
+
+    UpdateAddonVersion:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/AddonVersion'
+
+    CreateUserBadge:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserBadge'
+
+  responses:
+    Error:
+      description: Something went wrong
+      headers:
+        X-RateLimit-Limit:
+          $ref: '#/components/headers/xRateLimit'
+        X-RateLimit-Remaining:
+          $ref: '#/components/headers/xRateLimitRemaining'
+      content:
+        application/json:
+          schema:
+            type: object
+            title: ErrorResponse
+            properties:
+              data:
+                $ref: '#/components/schemas/Error'
+
+    TooManyRequests:
+      description: Too many requests
+      headers:
+        X-RateLimit-Limit:
+          $ref: '#/components/headers/xRateLimit'
+        X-RateLimit-Remaining:
+          $ref: '#/components/headers/xRateLimitRemaining'
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+            format: int64
+          description: The UNIX timestamp at which your rate limit quota will reset.
+      content:
+        application/json:
+          schema:
+            type: object
+            title: ErrorResponse
+            properties:
+              data:
+                $ref: '#/components/schemas/Error'
+
+  headers:
+    xRateLimit:
+      schema:
+        type: integer
+        default: 60
+      description: Request limit per minute.
+    xRateLimitRemaining:
+      schema:
+        type: integer
+      description: The number of requests left for the time window.
