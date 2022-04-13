@@ -12,14 +12,14 @@ type ApiVersion = {
 
 const apiVersions: ApiVersion[] = [
   {
+    id: '3',
+    name: 'API v3',
+    specUrl: 'https://gmodstore.com/openapi'
+  },
+  {
     id: '2',
     name: 'API v2',
     specUrl: 'https://raw.githubusercontent.com/everyday-as/gmodstore-api-docs/master/openapi/api-v2.yaml'
-  },
-  {
-    id: '3',
-    name: 'API v3 (UNRELEASED)',
-    specUrl: 'https://staging.gmodstore.com/openapi'
   }
 ]
 

@@ -1,7 +1,7 @@
 {
   "packageUrl": ".",
   "packageName": "gmodstore-sdk",
-  "packageVersion": "1.5.2",
+  "packageVersion": "3.0.0",
   "projectName": "GmodStore SDK",
   "gitUserId": "everyday-as",
   "gitRepoId": "gmodstore-python-sdk",
