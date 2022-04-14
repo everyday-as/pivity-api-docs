@@ -14,7 +14,7 @@ const apiVersions: ApiVersion[] = [
   {
     id: '3',
     name: 'API v3',
-    specUrl: 'https://gmodstore.com/openapi'
+    specUrl: 'https://www.gmodstore.com/openapi'
   },
   {
     id: '2',
