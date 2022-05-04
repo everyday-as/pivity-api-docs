@@ -158,6 +158,8 @@ jobs:
         run: wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/${{ env.OPENAPI_CODEGEN_CLI_VERSION }}/openapi-generator-cli-${{ env.OPENAPI_CODEGEN_CLI_VERSION }}.jar -O openapi-generator-cli.jar
 #      - name: Install uncrustify
 #        run: sudo apt-get install uncrustify -y
+      - name: Purge old SDK files
+        run: rm -rf .
       - name: Generate SDK
         run: |
           rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
