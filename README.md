@@ -30,13 +30,13 @@ https://github.com/everyday-as/gmodstore-javascript-sdk
 
 To generate your own client libraries you can use the OpenApi generator and the openapi.yaml found in this repository.
 
-The documentation for Swagger codegen can be found here: https://github.com/OpenAPITools/openapi-generator#2---getting-started
+The documentation for OpenAPI generator can be found here: https://github.com/OpenAPITools/openapi-generator#2---getting-started
 
 You can generate a PHP library for GmodStore using the following command:
 
 ```
 java -jar openapi-generator-cli.jar generate \
-  -i https://raw.githubusercontent.com/everyday-as/gmodstore-api-docs/master/openapi.yaml \
+  -i https://www.gmodstore.com/openapi \
   -g java \
   -o gmodstoresdk/java
 ```
