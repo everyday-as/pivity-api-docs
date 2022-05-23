@@ -4,7 +4,13 @@ View the full documentation here:
 
 https://docs.gmodstore.com/
 
-### Libraries
+### V3 API Libraries
+
+Please use the documentation and interface with the GmodStore API yourself in your own preferred way. We do not maintain SDKs for version 3 (or greater) of the API.
+
+### Libraries (Legacy V2 API Only)
+
+> Use at your own risk. API V2 is deprecated and will soon be deleted (Cutoff date TBD).
 
 #### PHP
 
@@ -26,7 +32,7 @@ https://github.com/everyday-as/gmodstore-csharp-sdk
 
 https://github.com/everyday-as/gmodstore-javascript-sdk
 
-### Generating your own
+#### Generating your own (V2 only. V3 SDKs can not be generated with OpenAPI generator, they will not work properly)
 
 To generate your own client libraries you can use the OpenApi generator and the openapi.yaml found in this repository.
 

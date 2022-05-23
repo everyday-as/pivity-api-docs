@@ -34,7 +34,7 @@ jobs:
         run: |
           rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
           java -jar openapi-generator-cli.jar generate \
-            -i https://www.gmodstore.com/openapi \
+            -i openapi/api-v2.yaml \
             -g ${{ env.LANGUAGE }} \
             -c sdk-configs/${{ env.LANGUAGE }}.json \
             -o .autogen/${{ env.LANGUAGE }} \
@@ -76,7 +76,7 @@ jobs:
         run: |
           rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
           java -jar openapi-generator-cli.jar generate \
-            -i https://www.gmodstore.com/openapi \
+            -i openapi/api-v2.yaml \
             -g ${{ env.LANGUAGE }} \
             -c sdk-configs/${{ env.LANGUAGE }}.json \
             -o .autogen/${{ env.LANGUAGE }}
@@ -117,7 +117,7 @@ jobs:
         run: |
           rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
           java -jar openapi-generator-cli.jar generate \
-            -i https://www.gmodstore.com/openapi \
+            -i openapi/api-v2.yaml \
             -g ${{ env.LANGUAGE }} \
             -c sdk-configs/${{ env.LANGUAGE }}.json \
             -o .autogen/${{ env.LANGUAGE }}
@@ -162,7 +162,7 @@ jobs:
         run: |
           rm -rf .autogen/${{ env.LANGUAGE }}/src .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
           java -jar openapi-generator-cli.jar generate \
-            -i https://www.gmodstore.com/openapi \
+            -i openapi/api-v2.yaml \
             -g ${{ env.LANGUAGE }} \
             -c sdk-configs/${{ env.LANGUAGE }}.json \
             -o .autogen/${{ env.LANGUAGE }} \
@@ -204,7 +204,7 @@ jobs:
         run: |
           rm -rf .autogen/${{ env.LANGUAGE }}/lib .autogen/${{ env.LANGUAGE }}/docs .autogen/${{ env.LANGUAGE }}/README.md
           java -jar openapi-generator-cli.jar generate \
-            -i https://www.gmodstore.com/openapi \
+            -i openapi/api-v2.yaml \
             -g ${{ env.LANGUAGE }} \
             -c sdk-configs/${{ env.LANGUAGE }}.json \
             -o .autogen/${{ env.LANGUAGE }} \
