@@ -15,7 +15,7 @@ jobs:
         run: |
           npm i --include=dev
           npm run build
-          cp CNAME ./build/CNAME
+          cp CNAME ./build/CNAME || cp ./static/CNAME ./build/CNAME || true
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
