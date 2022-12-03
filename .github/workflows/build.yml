@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@master
       - name: Generate Docs
         run: |
-          npm i --include=dev
+          npm ci --include=dev
           npm run build
           cp CNAME ./build/CNAME || cp ./static/CNAME ./build/CNAME || true
       - name: Deploy
