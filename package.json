@@ -1,8 +1,8 @@
 {
-  "name": "gmodstore-api-docs",
+  "name": "pivity-api-docs",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://docs.gmodstore.com",
+  "homepage": "https://docs.pivity.com",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -10,11 +10,11 @@
     "@types/node": "^18.11.10",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
-    "gh-pages": "^4.0.0",
+    "gh-pages": "^6.1.1",
     "mobx": "^6.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.1",
     "redoc": "^2.0.0",
     "sass": "^1.49.9",
     "styled-components": "^5.3.0",
@@ -26,7 +26,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "echo 'docs.gmodstore.com' > ./build/CNAME && gh-pages -d build"
+    "deploy": "echo 'docs.pivity.com' > ./build/CNAME && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
